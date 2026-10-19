@@ -267,6 +267,159 @@ a {
   color: var(--text-dim);
 }
 
+/* ---------- Home feature blurbs ---------- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.feature {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.feature h2 {
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+}
+
+.feature p {
+  color: var(--text-dim);
+  margin: 0;
+}
+
+.made-for {
+  color: var(--text-dim);
+  margin-top: 20px;
+}
+
+/* ---------- Shop / product page ---------- */
+.product-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.product-image {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  text-align: center;
+}
+
+.product-image img {
+  max-width: 360px;
+  width: 100%;
+}
+
+.product-price {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+.product-blurb {
+  color: var(--text-dim);
+  margin: 0 0 24px;
+}
+
+/* fieldset groups related radio buttons; legend is its label */
+.product-options fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.product-options legend {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.swatches,
+.choice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Each option is a <label> wrapping a radio, so clicking anywhere on it picks it */
+.swatch,
+.choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Hide the round radio dot itself; the bordered label shows the choice instead.
+   opacity: 0 (not display: none) keeps it focusable with Tab and readable by screen readers. */
+.swatch input,
+.choice input {
+  position: absolute;
+  opacity: 0;
+}
+
+/* :has() styles the label when the radio inside it is checked */
+.swatch:has(input:checked),
+.choice:has(input:checked) {
+  border-color: var(--blue);
+  background: var(--raised);
+}
+
+/* Keyboard users need to see which option has focus */
+.swatch:has(input:focus-visible),
+.choice:has(input:focus-visible) {
+  outline: 2px solid var(--blue-light);
+  outline-offset: 2px;
+}
+
+.swatch-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--text-dim);
+}
+
+.field-note {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin: 8px 0 0;
+}
+
+.quantity-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+
+.quantity-row input {
+  width: 80px;
+  padding: 10px;
+  font: inherit;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--card);
@@ -365,5 +518,18 @@ a {
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .product-image {
+    padding: 20px;
   }
 }
