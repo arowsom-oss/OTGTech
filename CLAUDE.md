@@ -256,6 +256,15 @@ Concepts to look up: **Luhn algorithm**, **client-side vs server-side validation
 - **Footer contact:** email `otgtech.ve@gufsd.org`, TikTok `@otgtech`, Instagram `@otgtech.ven`. No phone number yet.
 - **Disclaimer wording**, from the current VE template: `Disclaimer: This Virtual Enterprise online store is for educational purposes only. (2026-2027 – OTGTech)`
 
+### Pricing draft (from Mrs. Kollen's post, Oct 19, 2026, NOT final)
+This replaces the brief's "3 colorways x battery yes/no" product setup. Prices will change, so they stay in `js/products.js` only.
+- Cheapest material: $499
+- Second material: $599
+- One of each material: $999 (saves $99)
+- Office bundle: 5 of the cheap material + 5 of the second material for $4,999 (separately $5,490, saves $491)
+- Wired cords add-on: +$50. These are cables that connect the case to a laptop, because MacBooks don't charge wirelessly.
+- Still unanswered: the names of the two materials, whether each still comes in Black / Navy Blue / Gray, whether the battery module is still sold, and whether the cords are $50 per case or per order.
+
 ### Ground rules agreed with Alex
 - Clean, readable code. Never write it to look sloppy or "teenager-written." Authorship stays honest in the git history.
 - Alex writes the parts he'll be asked about: `js/products.js`, the Luhn check, and the cart's quantity and subtotal logic. Claude explains the approach, Alex writes it, Claude reviews it.
@@ -263,7 +272,7 @@ Concepts to look up: **Luhn algorithm**, **client-side vs server-side validation
 
 ### Open questions for Alex (start the next session here, one at a time)
 1. **Check question:** in `nav.js`, why does `setAttribute("aria-expanded", isOpen)` matter if the menu already opens and closes visually without it?
-2. **Alex's task:** write `js/products.js` with all 6 SKUs (name, colorway, battery true/false, SKU, price `"$XX.XX"`). Review it before step 2.
+2. **Alex's task:** write `js/products.js` from the pricing draft above, with prices in cents. The shop page layout is done (step 2, part 1). The picker logic waits on this file.
 3. Is the Instagram handle really `otgtech.ven`, not `otgtech.ve` like the email? A wrong handle is a broken link the judges will click.
 4. Prices: when does Accounting have COGS and margin numbers?
 5. About page: mission statement, team member names and roles, and departments. None of these are in the brief.
