@@ -280,4 +280,4 @@ This replaces the brief's "3 colorways x battery yes/no" product setup. Prices w
 7. Apple Watch charging claim: verified? Until it is, the FAQ answer stays marked unconfirmed.
 8. Current rubric from Mrs. Kollen: does it change anything on the site?
 9. Send `otgtech-fold-model.html` and `otgtech-product-sheet.html`. They're needed for step 6.
-10. Hosting: create a `main` branch and turn on GitHub Pages? Who on the team needs repo access?
+10. Hosting: GitHub Pages, chosen Oct 20. `main` exists. Alex still has to set `main` as the default branch, decide public vs private, turn on Pages from `main` / root, and test the site on school Wi-Fi. New work goes on a feature branch and gets a PR into `main`.
