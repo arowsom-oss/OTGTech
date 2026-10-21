@@ -256,6 +256,9 @@ Concepts to look up: **Luhn algorithm**, **client-side vs server-side validation
 - **Footer contact:** email `otgtech.ve@gufsd.org`, TikTok `@otgtech`, Instagram `@otgtech.ven`. No phone number yet.
 - **Disclaimer wording**, from the current VE template: `Disclaimer: This Virtual Enterprise online store is for educational purposes only. (2026-2027 – OTGTech)`
 
+### Product name (Oct 21, 2026)
+The product is the **Portafold**. **OTGTech** is still the firm name and the brand in the logo and hero. Use "the Portafold" wherever the site means the product itself.
+
 ### Pricing draft (from Mrs. Kollen's post, Oct 19, 2026, NOT final)
 This replaces the brief's "3 colorways x battery yes/no" product setup. Prices will change, so they stay in `js/products.js` only.
 - Cheapest material: $499
