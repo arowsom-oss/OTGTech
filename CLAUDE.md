@@ -261,12 +261,12 @@ The product is the **Portafold**. **OTGTech** is still the firm name and the bra
 
 ### Pricing draft (from Mrs. Kollen's post, Oct 19, 2026, NOT final)
 This replaces the brief's "3 colorways x battery yes/no" product setup. Prices will change, so they stay in `js/products.js` only.
-- Cheapest material: $499
-- Second material: $599
+- Leather (cheaper material): $499
+- Carbon fiber (second material): $599
 - One of each material: $999 (saves $99)
 - Office bundle: 5 of the cheap material + 5 of the second material for $4,999 (separately $5,490, saves $491)
 - Wired cords add-on: +$50. These are cables that connect the case to a laptop, because MacBooks don't charge wirelessly.
-- Still unanswered: the names of the two materials, whether each still comes in Black / Navy Blue / Gray, whether the battery module is still sold, and whether the cords are $50 per case or per order.
+- Still unanswered: whether each material still comes in Black / Navy Blue / Gray, whether the battery module is still sold, and whether the cords are $50 per case or per order.
 
 ### Ground rules agreed with Alex
 - Clean, readable code. Never write it to look sloppy or "teenager-written." Authorship stays honest in the git history.
