@@ -271,6 +271,11 @@ This replaces the brief's "3 colorways x battery yes/no" product setup. Prices w
 - **Brown swatch** on the shop page is a placeholder hex (`#5c4033`), not from the brand sheet.
 - **Carbon fiber and wireless charging:** real carbon fiber conducts electricity and can interfere with Qi charging. Keep it on the outer shell only, never over the pads. The team should confirm this before the business plan.
 
+### VE AI policy (pasted by Alex, Oct 22, 2026)
+> Where AI is used, schools must disclose its use and appropriately cite all sources, including AI-generated content or suggestions. AI should augment the learning experience, not replace intellectual work in the classroom and competitive event submissions.
+
+What this means here: the site needs an AI-use disclosure that Mrs. Kollen approves, and it has to be accurate about who wrote what. The logic judges and employers ask about (`products.js`, the cart math, the Luhn check) stays Alex's work.
+
 ### Ground rules agreed with Alex
 - Clean, readable code. Never write it to look sloppy or "teenager-written." Authorship stays honest in the git history.
 - Alex writes the parts he'll be asked about: `js/products.js`, the Luhn check, and the cart's quantity and subtotal logic. Claude explains the approach, Alex writes it, Claude reviews it.
