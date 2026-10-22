@@ -257,16 +257,19 @@ Concepts to look up: **Luhn algorithm**, **client-side vs server-side validation
 - **Disclaimer wording**, from the current VE template: `Disclaimer: This Virtual Enterprise online store is for educational purposes only. (2026-2027 – OTGTech)`
 
 ### Product name (Oct 21, 2026)
-The product is the **Portafold**. **OTGTech** is still the firm name and the brand in the logo and hero. Use "the Portafold" wherever the site means the product itself.
+The product is the **PortaFold**. **OTGTech** is still the firm name and the brand in the logo and hero. Use "the PortaFold" wherever the site means the product itself.
 
-### Pricing draft (from Mrs. Kollen's post, Oct 19, 2026, NOT final)
+### Pricing draft (from Mrs. Kollen's post, Oct 19, 2026, NOT final; details from Alex, Oct 22)
 This replaces the brief's "3 colorways x battery yes/no" product setup. Prices will change, so they stay in `js/products.js` only.
-- Leather (cheaper material): $499
-- Carbon fiber (second material): $599
-- One of each material: $999 (saves $99)
-- Office bundle: 5 of the cheap material + 5 of the second material for $4,999 (separately $5,490, saves $491)
-- Wired cords add-on: +$50. These are cables that connect the case to a laptop, because MacBooks don't charge wirelessly.
-- Still unanswered: whether each material still comes in Black / Navy Blue / Gray, whether the battery module is still sold, and whether the cords are $50 per case or per order.
+- **Leather:** $499. Colors: Black, Gray, Brown.
+- **Carbon fiber:** $599. Colors: Black, Gray only. Carbon fiber is naturally black; other colors need tinted resin or a different fiber woven in.
+- **Battery:** the 74 Wh battery is included in every PortaFold. It is no longer an option. That makes known problem #1 (the battery doesn't fit) apply to every unit.
+- **One of each material:** $999 (saves $99). The customer picks the colors.
+- **Office bundle:** 5 leather + 5 carbon fiber for $4,999 (separately $5,490, saves $491). The customer picks the colors.
+- **Wired cord:** $50, sold as its own accessory (a spare or replacement cable to charge a MacBook from the PortaFold, or to charge the PortaFold). It's a separate product, not an add-on to a case.
+- **Price format:** Alex chose whole-dollar numbers (`499`) with `toFixed(2)` for display, not cents. Whole numbers add exactly in JavaScript, so there's no floating-point error unless a price ever gets cents.
+- **Brown swatch** on the shop page is a placeholder hex (`#5c4033`), not from the brand sheet.
+- **Carbon fiber and wireless charging:** real carbon fiber conducts electricity and can interfere with Qi charging. Keep it on the outer shell only, never over the pads. The team should confirm this before the business plan.
 
 ### Ground rules agreed with Alex
 - Clean, readable code. Never write it to look sloppy or "teenager-written." Authorship stays honest in the git history.
@@ -275,8 +278,8 @@ This replaces the brief's "3 colorways x battery yes/no" product setup. Prices w
 
 ### Open questions for Alex (start the next session here, one at a time)
 1. **Check question:** in `nav.js`, why does `setAttribute("aria-expanded", isOpen)` matter if the menu already opens and closes visually without it?
-2. **Alex's task:** write `js/products.js` from the pricing draft above, with prices in cents. The shop page layout is done (step 2, part 1). The picker logic waits on this file.
-3. Is the Instagram handle really `otgtech.ven`, not `otgtech.ve` like the email? A wrong handle is a broken link the judges will click.
+2. **Alex's task:** write `js/products.js` from the pricing draft above, with whole-dollar prices. The shop page layout is done (step 2, part 1). The picker logic waits on this file.
+3. ~~Instagram handle~~: confirmed `otgtech.ven` on Oct 22.
 4. Prices: when does Accounting have COGS and margin numbers?
 5. About page: mission statement, team member names and roles, and departments. None of these are in the brief.
 6. Battery fix #1 (separate snap-on pack or a thicker case): decided yet? It changes the specs page.

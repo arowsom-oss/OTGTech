@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shop the Portafold | OTGTech</title>
-  <meta name="description" content="Buy the Portafold by OTGTech in Black, Navy Blue or Gray.">
+  <title>Shop the PortaFold | OTGTech</title>
+  <meta name="description" content="Buy the PortaFold by OTGTech in leather or carbon fiber.">
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,45 +47,48 @@
              shop.js (built after products.js exists) reads the choices and finds the matching SKU. -->
         <form class="product-options" id="product-form">
           <p class="section-label">Shop</p>
-          <h1 id="product-name">Portafold</h1>
-          <p class="product-price" id="product-price">$XX.XX</p>
-          <p class="product-blurb">A pencil case that unfolds into a 36" x 18" desk mat, with wireless charging pads and a 65 W power hub built in.</p>
+          <h1 id="product-name">PortaFold</h1>
+          <p class="product-price" id="product-price">From $499</p>
+          <p class="product-blurb">A pencil case that unfolds into a 36" x 18" desk mat, with wireless charging pads, a 65 W power hub and a 74 Wh battery built in.</p>
 
           <fieldset>
-            <legend>Colorway</legend>
+            <legend>Material</legend>
+            <div class="choice-row">
+              <label class="choice">
+                <input type="radio" name="material" value="Leather" checked>
+                Leather · $499
+              </label>
+              <label class="choice">
+                <input type="radio" name="material" value="Carbon fiber">
+                Carbon fiber · $599
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Color</legend>
             <div class="swatches">
               <label class="swatch">
-                <input type="radio" name="colorway" value="Black" checked>
+                <input type="radio" name="color" value="Black" checked>
                 <span class="swatch-dot" style="background: #16191d"></span>
                 Black
               </label>
               <label class="swatch">
-                <input type="radio" name="colorway" value="Navy Blue">
-                <span class="swatch-dot" style="background: #1f3354"></span>
-                Navy Blue
-              </label>
-              <label class="swatch">
-                <input type="radio" name="colorway" value="Gray">
+                <input type="radio" name="color" value="Gray">
                 <span class="swatch-dot" style="background: #5a5f66"></span>
                 Gray
               </label>
+              <!-- TODO: brown hex is a placeholder, not from the brand sheet -->
+              <label class="swatch">
+                <input type="radio" name="color" value="Brown">
+                <span class="swatch-dot" style="background: #5c4033"></span>
+                Brown
+              </label>
             </div>
+            <p class="field-note">Carbon fiber comes in Black and Gray only.</p>
           </fieldset>
 
-          <fieldset>
-            <legend>Battery module</legend>
-            <div class="choice-row">
-              <label class="choice">
-                <input type="radio" name="battery" value="no" checked>
-                Without battery
-              </label>
-              <label class="choice">
-                <input type="radio" name="battery" value="yes">
-                With 74 Wh battery
-              </label>
-            </div>
-            <p class="field-note">Carry-on only when flying. Under the FAA 100 Wh limit.</p>
-          </fieldset>
+          <p class="field-note battery-note">The 74 Wh battery is included. Carry-on only when flying: it's under the FAA 100 Wh limit.</p>
 
           <div class="quantity-row">
             <label for="quantity">Quantity</label>
@@ -106,7 +109,7 @@
       <div class="footer-grid">
         <div>
           <p class="section-label">OTGTech</p>
-          <p>OTGTech makes the Portafold: a pencil case that unfolds into a desk mat, with wireless charging and a power hub built in.</p>
+          <p>OTGTech makes the PortaFold: a pencil case that unfolds into a desk mat, with wireless charging and a power hub built in.</p>
         </div>
         <div>
           <p class="section-label">Pages</p>
