@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shop | OTGTech</title>
-  <meta name="description" content="Buy OTGTech in Black, Navy Blue or Gray, with or without the battery module.">
+  <title>Shop the Portafold | OTGTech</title>
+  <meta name="description" content="Buy the Portafold by OTGTech in Black, Navy Blue or Gray.">
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,7 +47,7 @@
              shop.js (built after products.js exists) reads the choices and finds the matching SKU. -->
         <form class="product-options" id="product-form">
           <p class="section-label">Shop</p>
-          <h1 id="product-name">OTGTech</h1>
+          <h1 id="product-name">Portafold</h1>
           <p class="product-price" id="product-price">$XX.XX</p>
           <p class="product-blurb">A pencil case that unfolds into a 36" x 18" desk mat, with wireless charging pads and a 65 W power hub built in.</p>
 
@@ -93,7 +93,8 @@
           </div>
 
           <!-- Disabled until shop.js and products.js are hooked up -->
-          <button type="submit" class="button" id="add-to-cart" disabled>Add to Cart</button>
+          <button type="submit" class="button" id="add-to-cart" disabled aria-describedby="ordering-note">Add to Cart</button>
+          <p class="field-note" id="ordering-note">Online ordering opens soon. Questions? Email <a href="mailto:otgtech.ve@gufsd.org">otgtech.ve@gufsd.org</a>.</p>
         </form>
 
       </div>
@@ -105,7 +106,7 @@
       <div class="footer-grid">
         <div>
           <p class="section-label">OTGTech</p>
-          <p>A pencil case that unfolds into a desk mat, with wireless charging and a power hub built in.</p>
+          <p>OTGTech makes the Portafold: a pencil case that unfolds into a desk mat, with wireless charging and a power hub built in.</p>
         </div>
         <div>
           <p class="section-label">Pages</p>
