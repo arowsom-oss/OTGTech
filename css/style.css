@@ -397,6 +397,10 @@ a {
   margin: 8px 0 0;
 }
 
+.battery-note {
+  margin: 0 0 24px;
+}
+
 .quantity-row {
   display: flex;
   align-items: center;
