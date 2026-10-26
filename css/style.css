@@ -384,6 +384,13 @@ a {
   outline-offset: 2px;
 }
 
+/* A disabled option (like Brown when Carbon fiber is picked) looks faded and can't be clicked */
+.swatch:has(input:disabled),
+.choice:has(input:disabled) {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .swatch-dot {
   width: 20px;
   height: 20px;
