@@ -28,7 +28,7 @@
           <li><a href="specs.html">Specs</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="cart.html" class="cart-link" aria-current="page">Cart</a></li>
+          <li><a href="cart.html" class="cart-link" aria-current="page">Cart<span class="cart-count" id="cart-count" hidden></span></a></li>
         </ul>
       </nav>
     </div>
@@ -37,8 +37,15 @@
   <main>
     <section class="page-section">
       <div class="container">
-        <h1>Cart</h1>
-        <div class="coming-soon">Your cart is empty. Online ordering opens soon. <a href="shop.html">See the PortaFold</a></div>
+        <h1 id="cart-heading" tabindex="-1">Cart</h1>
+        <noscript><p>The cart needs JavaScript turned on to work.</p></noscript>
+        <p id="cart-empty" class="cart-empty" hidden>Your cart is empty. <a href="shop.html">See the PortaFold</a></p>
+        <ul id="cart-list" class="cart-list"></ul>
+        <div id="cart-summary" class="cart-summary" hidden>
+          <p class="cart-subtotal">Subtotal: <strong id="cart-subtotal"></strong></p>
+          <a href="checkout.html" class="button">Checkout</a>
+        </div>
+        <p id="cart-status" class="visually-hidden" role="status" aria-live="polite"></p>
       </div>
     </section>
   </main>
@@ -75,6 +82,9 @@
     </div>
   </footer>
 
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/cart-page.js"></script>
   <script src="js/nav.js"></script>
 </body>
 </html>
