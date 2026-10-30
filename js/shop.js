@@ -28,18 +28,6 @@ materialInputs.forEach(function (input) {
 
 // ---------- Prices on the page come from PRODUCTS, never typed into the HTML ----------
 
-// Cheapest price among the PortaFolds of one material
-function casePrice(material) {
-  const prices = PRODUCTS
-    .filter(function (p) {
-      return p.type === "PortaFold" && p.material === material;
-    })
-    .map(function (p) {
-      return p.price;
-    });
-  return Math.min.apply(null, prices);
-}
-
 // Colors a material comes in, taken from the products (no repeats)
 function colorsFor(material) {
   const colors = [];
@@ -51,8 +39,8 @@ function colorsFor(material) {
   return colors;
 }
 
-// "Save $99.00 compared to buying them separately." Blank if the bundle isn't cheaper.
-function savingsText(sku) {
+// How much a bundle saves compared to buying its items one by one (0 if it doesn't save anything)
+function savingsAmount(sku) {
   const bundle = findProduct(sku);
   let separately = 0;
   if (sku === "PF-BND-ONE") {
@@ -60,7 +48,12 @@ function savingsText(sku) {
   } else if (sku === "PF-BND-OFF") {
     separately = 5 * casePrice("Leather") + 5 * casePrice("Carbon fiber");
   }
-  const saved = separately - bundle.price;
+  return Math.max(0, separately - bundle.price);
+}
+
+// "Save $99.00 compared to buying them separately." Blank if the bundle isn't cheaper.
+function savingsText(sku) {
+  const saved = savingsAmount(sku);
   return saved > 0 ? "Save " + formatPrice(saved) + " compared to buying them separately." : "";
 }
 
@@ -77,6 +70,17 @@ document.querySelectorAll("[data-price-of]").forEach(function (element) {
 document.querySelectorAll("[data-savings-of]").forEach(function (span) {
   span.textContent = savingsText(span.dataset.savingsOf);
 });
+// The little "Save $99.00" badge on each deal (stays hidden if there's no saving)
+document.querySelectorAll("[data-badge-of]").forEach(function (badge) {
+  const saved = savingsAmount(badge.dataset.badgeOf);
+  if (saved > 0) {
+    badge.textContent = "Save " + formatPrice(saved);
+    badge.hidden = false;
+  }
+});
+
+// The "mix and match" note only shows once the team turns automatic deals on (settings.js)
+document.getElementById("auto-deals-note").hidden = !ENABLE_AUTO_DEALS;
 
 // ---------- Shows a message under a button ----------
 

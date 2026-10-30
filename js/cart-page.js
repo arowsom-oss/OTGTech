@@ -12,6 +12,11 @@ const summaryEl = document.getElementById("cart-summary");
 const subtotalEl = document.getElementById("cart-subtotal");
 const statusEl = document.getElementById("cart-status");
 const headingEl = document.getElementById("cart-heading");
+const itemsRowEl = document.getElementById("cart-items-row");
+const itemsTotalEl = document.getElementById("cart-items-total");
+const dealsRowEl = document.getElementById("cart-deals-row");
+const dealsTextEl = document.getElementById("cart-deals-text");
+const dealsAmountEl = document.getElementById("cart-deals-amount");
 
 // Makes a tag with a class and some text
 function makeEl(tag, className, text) {
@@ -102,7 +107,16 @@ function render() {
 
   emptyEl.hidden = lines.length > 0;
   summaryEl.hidden = lines.length === 0;
-  subtotalEl.textContent = formatPrice(cartSubtotal(lines));
+
+  // Totals. The Items and Deals rows only show when an automatic deal was applied.
+  const totals = cartTotals(lines);
+  const hasDeals = totals.discount > 0;
+  itemsRowEl.hidden = !hasDeals;
+  dealsRowEl.hidden = !hasDeals;
+  itemsTotalEl.textContent = formatPrice(totals.itemsTotal);
+  dealsTextEl.textContent = "Deals applied (" + describeDeals(totals.deals) + ")";
+  dealsAmountEl.textContent = "−" + formatPrice(totals.discount);
+  subtotalEl.textContent = formatPrice(totals.total);
   updateCartBadge();
 }
 

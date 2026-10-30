@@ -9,6 +9,7 @@
 const CART_KEY = "otgtech-cart";
 const MAX_QTY = 10;       // most of one item per cart line
 const MAX_NOTE = 120;     // longest note (like a color choice) we keep
+const MAX_LINES = 50;     // most separate lines in one cart (keeps the math fast even if the cart is tampered with)
 
 // ---------- Small helpers ----------
 
@@ -20,6 +21,18 @@ function findProduct(sku) {
   return PRODUCTS.find(function (p) {
     return p.sku === sku;
   });
+}
+
+// Cheapest price among the PortaFolds of one material
+function casePrice(material) {
+  const prices = PRODUCTS
+    .filter(function (p) {
+      return p.type === "PortaFold" && p.material === material;
+    })
+    .map(function (p) {
+      return p.price;
+    });
+  return Math.min.apply(null, prices);
 }
 
 // 4999 -> "$4,999.00". Money is always shown with two decimals.
@@ -68,7 +81,7 @@ function loadCart() {
       note: cleanNote(item.note)
     });
   });
-  return lines;
+  return lines.slice(0, MAX_LINES);
 }
 
 // Saves the cart. Returns true if it worked, false if the browser blocked it
@@ -100,6 +113,10 @@ function addToCart(sku, qty, note) {
   const existing = lines.find(function (line) {
     return line.sku === sku && line.note === cleanedNote;
   });
+
+  if (!existing && lines.length >= MAX_LINES) {
+    return { ok: false, error: "Your cart is full. Please check out or remove something first." };
+  }
 
   let capped = false;
   if (existing) {

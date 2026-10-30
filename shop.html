@@ -49,6 +49,7 @@
           <p class="section-label">Shop</p>
           <h1 id="product-name">PortaFold</h1>
           <p class="product-price" id="product-price"></p>
+          <a href="#deals" class="deals-tab">Look for deals</a>
           <p class="product-blurb">A pencil case that unfolds into a 36" x 18" desk mat, with wireless charging pads, a 65 W power hub and a 74 Wh battery built in.</p>
 
           <fieldset>
@@ -104,11 +105,13 @@
 
     <section class="page-section">
       <div class="container">
-        <p class="section-label">Bundles and accessories</p>
-        <div class="extras-grid">
+        <h2 class="section-label" id="deals" tabindex="-1">Deals</h2>
+        <p class="deals-note" id="auto-deals-note" hidden>Mix and match: add any leather and carbon fiber PortaFolds to your cart and the deals apply automatically.</p>
+        <div class="extras-grid extras-grid--two">
 
           <form class="extra-card" data-sku="PF-BND-ONE">
-            <h2 data-name-of="PF-BND-ONE"></h2>
+            <span class="deal-badge" data-badge-of="PF-BND-ONE" hidden></span>
+            <h3 data-name-of="PF-BND-ONE"></h3>
             <p class="extra-price" data-price-of="PF-BND-ONE"></p>
             <p class="extra-desc">One leather and one carbon fiber PortaFold, in the colors you choose. <span data-savings-of="PF-BND-ONE"></span></p>
             <label class="form-field">Leather color
@@ -125,7 +128,8 @@
           </form>
 
           <form class="extra-card" data-sku="PF-BND-OFF">
-            <h2 data-name-of="PF-BND-OFF"></h2>
+            <span class="deal-badge" data-badge-of="PF-BND-OFF" hidden></span>
+            <h3 data-name-of="PF-BND-OFF"></h3>
             <p class="extra-price" data-price-of="PF-BND-OFF"></p>
             <p class="extra-desc">Five leather and five carbon fiber PortaFolds for your team. <span data-savings-of="PF-BND-OFF"></span></p>
             <label class="form-field">Color split (optional)
@@ -138,6 +142,14 @@
             <p class="status-message" role="status"></p>
           </form>
 
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container">
+        <h2 class="section-label">Accessories</h2>
+        <div class="extras-grid">
           <form class="extra-card" data-sku="PF-CORD-001">
             <h2 data-name-of="PF-CORD-001"></h2>
             <p class="extra-price" data-price-of="PF-CORD-001"></p>
@@ -148,7 +160,6 @@
             <button type="submit" class="button">Add to Cart</button>
             <p class="status-message" role="status"></p>
           </form>
-
         </div>
       </div>
     </section>
@@ -186,6 +197,7 @@
     </div>
   </footer>
   <script src="js/products.js"></script>
+  <script src="js/settings.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/shop.js"></script>
   <script src="js/nav.js"></script>
