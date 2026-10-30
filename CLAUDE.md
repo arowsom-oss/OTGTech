@@ -256,6 +256,14 @@ Concepts to look up: **Luhn algorithm**, **client-side vs server-side validation
 - **Footer contact:** email `otgtech.ve@gufsd.org`, TikTok `@otgtech`, Instagram `@otgtech.ven`. No phone number yet.
 - **Disclaimer wording**, from the current VE template: `Disclaimer: This Virtual Enterprise online store is for educational purposes only. (2026-2027 – OTGTech)`
 
+- **Step 2, Oct 26-28, 2026:** shop page layout, `js/products.js` and the Brown/Carbon fiber rule in `js/shop.js` (all written by Alex), disabled-option styling.
+- **Step 3, Oct 30, 2026 (Claude built it at Alex's request, Alex to review):** Add to Cart, cart page and nav cart count.
+  - `js/cart.js` is shared cart code (add, load, save, subtotal, count). `js/cart-page.js` draws the cart. The add-to-cart part of `js/shop.js` is below Alex's lines and marked.
+  - The cart saves only `{ sku, qty, note }`. Prices are looked up from `PRODUCTS` every time. Saved data is validated on load, and the cart page uses `textContent`, never `innerHTML`.
+  - Whole-dollar prices add exactly, so no cents math. Max 10 of one line.
+  - **Assumptions to confirm with the team:** (1) One of Each Bundle lets the customer pick a leather color and a carbon fiber color. (2) Office Bundle has an optional free-text color split. (3) Bundles and the cord are on the shop page below the PortaFold picker. (4) A bundle with different colors is a separate cart line.
+  - Checkout page is still a placeholder (step 4).
+
 ### Product name (Oct 21, 2026)
 The product is the **PortaFold**. **OTGTech** is still the firm name and the brand in the logo and hero. Use "the PortaFold" wherever the site means the product itself.
 
@@ -283,7 +291,7 @@ What this means here: the site needs an AI-use disclosure that Mrs. Kollen appro
 
 ### Open questions for Alex (start the next session here, one at a time)
 1. **Check question:** in `nav.js`, why does `setAttribute("aria-expanded", isOpen)` matter if the menu already opens and closes visually without it?
-2. **Alex's task:** write `js/products.js` from the pricing draft above, with whole-dollar prices. The shop page layout is done (step 2, part 1). The picker logic waits on this file.
+2. ~~products.js~~ done by Alex. **Alex should read `js/cart.js` line by line** (the cart logic is the part he'll be asked about) and be able to explain: why prices aren't saved in the cart, why `loadCart` validates, and why the cart page uses `textContent`.
 3. ~~Instagram handle~~: confirmed `otgtech.ven` on Oct 22.
 4. Prices: when does Accounting have COGS and margin numbers?
 5. About page: mission statement, team member names and roles, and departments. None of these are in the brief.

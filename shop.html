@@ -28,7 +28,7 @@
           <li><a href="specs.html">Specs</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="cart.html" class="cart-link">Cart</a></li>
+          <li><a href="cart.html" class="cart-link">Cart<span class="cart-count" id="cart-count" hidden></span></a></li>
         </ul>
       </nav>
     </div>
@@ -48,7 +48,7 @@
         <form class="product-options" id="product-form">
           <p class="section-label">Shop</p>
           <h1 id="product-name">PortaFold</h1>
-          <p class="product-price" id="product-price">From $499</p>
+          <p class="product-price" id="product-price"></p>
           <p class="product-blurb">A pencil case that unfolds into a 36" x 18" desk mat, with wireless charging pads, a 65 W power hub and a 74 Wh battery built in.</p>
 
           <fieldset>
@@ -56,11 +56,11 @@
             <div class="choice-row">
               <label class="choice">
                 <input type="radio" name="material" value="Leather" checked>
-                Leather · $499
+                Leather · <span data-material-price="Leather"></span>
               </label>
               <label class="choice">
                 <input type="radio" name="material" value="Carbon fiber">
-                Carbon fiber · $599
+                Carbon fiber · <span data-material-price="Carbon fiber"></span>
               </label>
             </div>
           </fieldset>
@@ -95,11 +95,61 @@
             <input type="number" id="quantity" name="quantity" value="1" min="1" max="10">
           </div>
 
-          <!-- Disabled until shop.js and products.js are hooked up -->
-          <button type="submit" class="button" id="add-to-cart" disabled aria-describedby="ordering-note">Add to Cart</button>
-          <p class="field-note" id="ordering-note">Online ordering opens soon. Questions? Email <a href="mailto:otgtech.ve@gufsd.org">otgtech.ve@gufsd.org</a>.</p>
+          <button type="submit" class="button" id="add-to-cart">Add to Cart</button>
+          <p class="status-message" id="add-status" role="status"></p>
         </form>
 
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="container">
+        <p class="section-label">Bundles and accessories</p>
+        <div class="extras-grid">
+
+          <form class="extra-card" data-sku="PF-BND-ONE">
+            <h2 data-name-of="PF-BND-ONE"></h2>
+            <p class="extra-price" data-price-of="PF-BND-ONE"></p>
+            <p class="extra-desc">One leather and one carbon fiber PortaFold, in the colors you choose. <span data-savings-of="PF-BND-ONE"></span></p>
+            <label class="form-field">Leather color
+              <select name="leather-color"></select>
+            </label>
+            <label class="form-field">Carbon fiber color
+              <select name="carbon-color"></select>
+            </label>
+            <label class="form-field">Quantity
+              <input type="number" name="quantity" value="1" min="1" max="10">
+            </label>
+            <button type="submit" class="button">Add to Cart</button>
+            <p class="status-message" role="status"></p>
+          </form>
+
+          <form class="extra-card" data-sku="PF-BND-OFF">
+            <h2 data-name-of="PF-BND-OFF"></h2>
+            <p class="extra-price" data-price-of="PF-BND-OFF"></p>
+            <p class="extra-desc">Five leather and five carbon fiber PortaFolds for your team. <span data-savings-of="PF-BND-OFF"></span></p>
+            <label class="form-field">Color split (optional)
+              <input type="text" name="colors" maxlength="120" placeholder="Example: 3 Black, 2 Gray leather; 5 Black carbon fiber">
+            </label>
+            <label class="form-field">Quantity
+              <input type="number" name="quantity" value="1" min="1" max="10">
+            </label>
+            <button type="submit" class="button">Add to Cart</button>
+            <p class="status-message" role="status"></p>
+          </form>
+
+          <form class="extra-card" data-sku="PF-CORD-001">
+            <h2 data-name-of="PF-CORD-001"></h2>
+            <p class="extra-price" data-price-of="PF-CORD-001"></p>
+            <p class="extra-desc">A spare cord to charge a MacBook from your PortaFold, or to charge the PortaFold itself.</p>
+            <label class="form-field">Quantity
+              <input type="number" name="quantity" value="1" min="1" max="10">
+            </label>
+            <button type="submit" class="button">Add to Cart</button>
+            <p class="status-message" role="status"></p>
+          </form>
+
+        </div>
       </div>
     </section>
   </main>
@@ -135,8 +185,9 @@
       <p class="disclaimer">Disclaimer: This Virtual Enterprise online store is for educational purposes only. (2026-2027 – OTGTech)</p>
     </div>
   </footer>
-<script src="js/products.js"></script>
-<script src="js/shop.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/shop.js"></script>
   <script src="js/nav.js"></script>
 </body>
 </html>
