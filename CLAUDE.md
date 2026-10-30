@@ -264,6 +264,19 @@ Concepts to look up: **Luhn algorithm**, **client-side vs server-side validation
   - **Assumptions to confirm with the team:** (1) One of Each Bundle lets the customer pick a leather color and a carbon fiber color. (2) Office Bundle has an optional free-text color split. (3) Bundles and the cord are on the shop page below the PortaFold picker. (4) A bundle with different colors is a separate cart line.
   - Checkout page is still a placeholder (step 4).
 
+- **Step 3b, Oct 30, 2026 (Claude built it at Alex's request, Alex to review):**
+  - **Look for deals tab** on the shop page, a Deals section (the two bundles) and an Accessories section (the cord). Savings come from `products.js`.
+  - **Automatic mix-and-match deals, OFF.** `js/settings.js` has `ENABLE_AUTO_DEALS = false`. The team is checking with Mrs. Kollen before turning it on. When on, `js/deals.js` prices the leather and carbon fiber PortaFolds in the cart the cheapest way using the bundle deals (any colors, any mix), and the cart and checkout show Items, Deals applied and Total. While off, nothing about it shows.
+  - **Pricing problem for the team:** 5 One of Each deals cost $4,995, which is $4 LESS than the Office Bundle at $4,999. So the Office Bundle is never the best price, with automatic deals on or off (a customer can add 5 One of Each). The Office Bundle needs a price under $4,995 to be worth having.
+  - Carts are capped at 50 separate lines.
+- **Step 4, Oct 30, 2026 (Claude built it, Alex chose "Option B", Alex to review):** checkout. `js/luhn.js` (the Luhn check), `js/checkout.js` (form, checks, order, confirmation) and `checkout.html`.
+  - Shipping: name, street, city, state, ZIP. Payment: card number, expiry, security code. All checked in the browser only.
+  - **Card rules from section 7, all enforced:** no network requests, no form posts, nothing saved, nothing logged, cleared the moment the order is placed. The confirmation page never shows any part of the card.
+  - `checkout.html` has a Content-Security-Policy that makes the BROWSER block network requests (`connect-src 'none'`), form submits (`form-action 'none'`) and outside images and scripts. No field has a `name` attribute, so nothing could be submitted even if JavaScript failed.
+  - The page says it's a practice store, asks people not to type a real card, and gives the test card `4242 4242 4242 4242`.
+  - The order number is made in the browser and is not stored. The order is not kept anywhere (no server in this project). Reloading the confirmation shows an empty cart.
+  - **Assumptions to confirm:** shipping is US-style (state and ZIP), there's no email field, and there's no shipping cost or tax. The brief lists none of those.
+
 ### Product name (Oct 21, 2026)
 The product is the **PortaFold**. **OTGTech** is still the firm name and the brand in the logo and hero. Use "the PortaFold" wherever the site means the product itself.
 
@@ -286,12 +299,12 @@ What this means here: the site needs an AI-use disclosure that Mrs. Kollen appro
 
 ### Ground rules agreed with Alex
 - Clean, readable code. Never write it to look sloppy or "teenager-written." Authorship stays honest in the git history.
-- Alex writes the parts he'll be asked about: `js/products.js`, the Luhn check, and the cart's quantity and subtotal logic. Claude explains the approach, Alex writes it, Claude reviews it.
+- Alex wrote `js/products.js` and the Brown/Carbon fiber rule in `js/shop.js`. On Oct 30 Alex asked Claude to build the cart, the deals and checkout (including the Luhn check, Option B) because the team is behind. Claude wrote them and flagged it. **Alex should still read `js/cart.js`, `js/luhn.js` and `js/checkout.js` and be able to explain them.** VE's AI policy applies: disclose this.
 - "All your pens are yellow" from the first message was probably voice-to-text garble. It was never clarified. Don't add yellow without asking.
 
 ### Open questions for Alex (start the next session here, one at a time)
 1. **Check question:** in `nav.js`, why does `setAttribute("aria-expanded", isOpen)` matter if the menu already opens and closes visually without it?
-2. ~~products.js~~ done by Alex. **Alex should read `js/cart.js` line by line** (the cart logic is the part he'll be asked about) and be able to explain: why prices aren't saved in the cart, why `loadCart` validates, and why the cart page uses `textContent`.
+2. ~~products.js~~ done by Alex. **Alex should read `js/cart.js`, `js/luhn.js` and `js/checkout.js` line by line** and be able to explain: why prices aren't saved in the cart, why `loadCart` validates, why pages use `textContent`, how the Luhn check works, and why the checkout page has a Content-Security-Policy and fields without `name` attributes.
 3. ~~Instagram handle~~: confirmed `otgtech.ven` on Oct 22.
 4. Prices: when does Accounting have COGS and margin numbers?
 5. About page: mission statement, team member names and roles, and departments. None of these are in the brief.

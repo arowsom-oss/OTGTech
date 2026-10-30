@@ -2,6 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- This page handles a card number, so the browser is told what it may and may NOT do:
+       connect-src 'none'  = no network requests of any kind, so nothing can be sent out
+       form-action 'none'  = forms can't be submitted anywhere
+       default-src 'self'  = scripts, images and everything else only from this site (plus the
+                             Google Fonts the whole site uses), so a card can't be sent out
+                             inside an image or script address either
+       object-src, base-uri = shut off two other ways code gets sneaked in
+       Even a mistake in checkout.js couldn't send the card out. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'none'; object-src 'none'; base-uri 'none'">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Checkout | OTGTech</title>
   <meta name="description" content="Check out your OTGTech order.">
@@ -37,8 +47,92 @@
   <main>
     <section class="page-section">
       <div class="container">
-        <h1>Checkout</h1>
-        <div class="coming-soon">Checkout opens soon. <a href="shop.html">See the PortaFold</a></div>
+        <h1 id="checkout-heading" tabindex="-1">Checkout</h1>
+        <noscript><p>Checkout needs JavaScript turned on to work.</p></noscript>
+        <p id="checkout-empty" class="cart-empty" hidden>Your cart is empty. <a href="shop.html">See the PortaFold</a></p>
+
+        <div id="checkout-grid" class="checkout-layout" hidden>
+
+          <!-- None of these fields has a name attribute on purpose. A field without a name is
+               left out if a form is ever submitted, so nothing here can end up in a web address. -->
+          <form id="checkout-form" class="checkout-form" novalidate>
+            <p class="notice">This is a Virtual Enterprise practice store. No real payment is taken and nothing is sent anywhere. Please don't type a real card number. To test, use <strong>4242 4242 4242 4242</strong>, any future date like <strong>08/30</strong>, and any 3 digits.</p>
+
+            <fieldset>
+              <legend>Shipping</legend>
+              <div class="field">
+                <label for="ship-name">Full name</label>
+                <input id="ship-name" type="text" autocomplete="name" maxlength="80" aria-describedby="ship-name-error">
+                <p class="field-error" id="ship-name-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="ship-address">Street address</label>
+                <input id="ship-address" type="text" autocomplete="street-address" maxlength="120" aria-describedby="ship-address-error">
+                <p class="field-error" id="ship-address-error" hidden></p>
+              </div>
+              <div class="field-row">
+              <div class="field">
+                <label for="ship-city">City</label>
+                <input id="ship-city" type="text" autocomplete="address-level2" maxlength="60" aria-describedby="ship-city-error">
+                <p class="field-error" id="ship-city-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="ship-state">State</label>
+                <input id="ship-state" type="text" autocomplete="address-level1" maxlength="2" placeholder="NY" aria-describedby="ship-state-error">
+                <p class="field-error" id="ship-state-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="ship-zip">ZIP code</label>
+                <input id="ship-zip" type="text" autocomplete="postal-code" inputmode="numeric" maxlength="10" aria-describedby="ship-zip-error">
+                <p class="field-error" id="ship-zip-error" hidden></p>
+              </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Payment</legend>
+              <!-- autocomplete="off" so the browser doesn't offer to save the card. The number is
+                   only checked for typos in this page and never stored or sent. -->
+              <div class="field">
+                <label for="card-number">Card number</label>
+                <input id="card-number" type="text" inputmode="numeric" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="23" aria-describedby="card-number-error">
+                <p class="field-error" id="card-number-error" hidden></p>
+              </div>
+              <div class="field-row">
+              <div class="field">
+                <label for="card-expiry">Expiry (MM/YY)</label>
+                <input id="card-expiry" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" maxlength="7" placeholder="MM/YY" aria-describedby="card-expiry-error">
+                <p class="field-error" id="card-expiry-error" hidden></p>
+              </div>
+              <div class="field">
+                <label for="card-cvc">Security code</label>
+                <input id="card-cvc" type="text" inputmode="numeric" autocomplete="off" spellcheck="false" maxlength="4" aria-describedby="card-cvc-error">
+                <p class="field-error" id="card-cvc-error" hidden></p>
+              </div>
+              </div>
+            </fieldset>
+
+            <button type="submit" class="button" id="place-order">Place order</button>
+            <p class="status-message status-error" id="checkout-status" role="alert"></p>
+          </form>
+
+          <aside class="order-summary" aria-labelledby="summary-heading">
+            <h2 id="summary-heading">Order summary</h2>
+            <ul id="summary-lines" class="summary-lines"></ul>
+            <div id="summary-totals" class="summary-totals"></div>
+            <p><a href="cart.html">Change your cart</a></p>
+          </aside>
+        </div>
+
+        <div id="confirmation" class="confirmation" hidden>
+          <h2 id="confirmation-heading" tabindex="-1">Order confirmed</h2>
+          <p class="confirmation-number">Order number: <strong id="confirmation-number"></strong></p>
+          <p id="confirmation-thanks"></p>
+          <ul id="confirmation-lines" class="summary-lines"></ul>
+          <div id="confirmation-totals" class="summary-totals"></div>
+          <p class="notice">This was a practice order for our Virtual Enterprise class. No payment was taken. Your card details were checked in your browser only. They were not saved or sent anywhere, and they've been cleared from this page.</p>
+          <a href="shop.html" class="button">Back to the shop</a>
+        </div>
       </div>
     </section>
   </main>
@@ -76,7 +170,11 @@
   </footer>
 
   <script src="js/products.js"></script>
+  <script src="js/settings.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/deals.js"></script>
+  <script src="js/luhn.js"></script>
+  <script src="js/checkout.js"></script>
   <script src="js/nav.js"></script>
 </body>
 </html>
