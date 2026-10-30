@@ -42,7 +42,11 @@
         <p id="cart-empty" class="cart-empty" hidden>Your cart is empty. <a href="shop.html">See the PortaFold</a></p>
         <ul id="cart-list" class="cart-list"></ul>
         <div id="cart-summary" class="cart-summary" hidden>
-          <p class="cart-subtotal">Subtotal: <strong id="cart-subtotal"></strong></p>
+          <div class="cart-totals">
+            <p class="cart-total-row" id="cart-items-row" hidden>Items <span id="cart-items-total"></span></p>
+            <p class="cart-total-row cart-deals-row" id="cart-deals-row" hidden><span id="cart-deals-text"></span> <span id="cart-deals-amount"></span></p>
+            <p class="cart-subtotal">Subtotal: <strong id="cart-subtotal"></strong></p>
+          </div>
           <a href="checkout.html" class="button">Checkout</a>
         </div>
         <p id="cart-status" class="visually-hidden" role="status" aria-live="polite"></p>
@@ -83,7 +87,9 @@
   </footer>
 
   <script src="js/products.js"></script>
+  <script src="js/settings.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/deals.js"></script>
   <script src="js/cart-page.js"></script>
   <script src="js/nav.js"></script>
 </body>

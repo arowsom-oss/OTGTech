@@ -28,18 +28,6 @@ materialInputs.forEach(function (input) {
 
 // ---------- Prices on the page come from PRODUCTS, never typed into the HTML ----------
 
-// Cheapest price among the PortaFolds of one material
-function casePrice(material) {
-  const prices = PRODUCTS
-    .filter(function (p) {
-      return p.type === "PortaFold" && p.material === material;
-    })
-    .map(function (p) {
-      return p.price;
-    });
-  return Math.min.apply(null, prices);
-}
-
 // Colors a material comes in, taken from the products (no repeats)
 function colorsFor(material) {
   const colors = [];
@@ -90,6 +78,9 @@ document.querySelectorAll("[data-badge-of]").forEach(function (badge) {
     badge.hidden = false;
   }
 });
+
+// The "mix and match" note only shows once the team turns automatic deals on (settings.js)
+document.getElementById("auto-deals-note").hidden = !ENABLE_AUTO_DEALS;
 
 // ---------- Shows a message under a button ----------
 

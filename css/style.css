@@ -668,6 +668,30 @@ a {
   }
 }
 
+/* ---------- Cart totals and deals ---------- */
+.cart-totals {
+  display: grid;
+  gap: 4px;
+  min-width: 260px;
+}
+
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 0;
+  color: var(--text-dim);
+}
+
+.cart-deals-row {
+  color: var(--green);
+}
+
+.deals-note {
+  margin: 0 0 16px;
+  color: var(--text-dim);
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--card);
