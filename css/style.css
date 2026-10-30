@@ -619,6 +619,55 @@ a {
   color: var(--text-dim);
 }
 
+/* ---------- Deals ---------- */
+/* The "Look for deals" tab under the price */
+.deals-tab {
+  display: inline-block;
+  margin: 0 0 16px;
+  padding: 6px 14px;
+  border: 1px solid var(--green);
+  border-radius: 999px;
+  color: var(--green);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.deals-tab:hover {
+  background: rgba(61, 220, 132, 0.12);
+}
+
+.deal-badge {
+  align-self: flex-start;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(61, 220, 132, 0.15);
+  color: var(--green);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* Two deal cards side by side (the phone layout below makes it one column) */
+.extras-grid--two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.extra-card h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+/* The header is sticky, so leave room for it when jumping to the deals */
+#deals {
+  scroll-margin-top: 90px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--card);
