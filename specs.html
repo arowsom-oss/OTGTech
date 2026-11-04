@@ -38,7 +38,136 @@
     <section class="page-section">
       <div class="container">
         <h1>Specs</h1>
-        <div class="coming-soon">Full PortaFold specs are coming soon.</div>
+        <p class="specs-intro">Everything about the PortaFold in one place. Numbers marked <span class="estimate">(estimate)</span> are rough and still being checked.</p>
+
+        <div class="specs-section">
+          <h2 class="section-label">Charging</h2>
+          <div class="table-scroll">
+            <table class="specs-table">
+              <caption class="visually-hidden">Charging specs</caption>
+              <tbody>
+                <tr><th scope="row">Phone</th><td>Qi2 magnetic, up to 25 W</td></tr>
+                <tr><th scope="row">Apple Watch</th><td>Apple-certified MFi module, 5 W</td></tr>
+                <tr><th scope="row">Earbuds</th><td>Qi wireless, up to 5 W</td></tr>
+                <tr><th scope="row">Wired outputs</th><td>2x USB-C PD, 1x USB-A</td></tr>
+                <tr><th scope="row">Total output</th><td><strong>65 W, shared across every pad and port</strong></td></tr>
+                <tr><th scope="row">Input</th><td>USB-C PD, 100 W adapter recommended</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="specs-section">
+          <h2 class="section-label">Power budget</h2>
+          <!-- The bar is just a picture. The list under it says the same thing in words. -->
+          <div class="power-bar" aria-hidden="true">
+            <span class="power-seg power-phone" style="flex: 25"></span>
+            <span class="power-seg power-watch" style="flex: 5"></span>
+            <span class="power-seg power-buds" style="flex: 5"></span>
+            <span class="power-seg power-usbc" style="flex: 30"></span>
+          </div>
+          <ul class="power-legend" id="power-legend">
+            <li><span class="legend-swatch power-phone"></span>Phone pad <strong>25 W</strong></li>
+            <li><span class="legend-swatch power-watch"></span>Watch pad <strong>5 W</strong></li>
+            <li><span class="legend-swatch power-buds"></span>Earbuds pad <strong>5 W</strong></li>
+            <li><span class="legend-swatch power-usbc"></span>USB-C port <strong>30 W</strong></li>
+            <li class="power-total">All at once <strong>65 W</strong></li>
+          </ul>
+          <p>Everything charging at once: phone 25 W + watch 5 W + earbuds 5 W + USB-C 30 W = <strong>65 W</strong>.</p>
+          <p>With the pads idle, the USB-C port can use the full 65 W for a laptop.</p>
+          <p>The 100 W adapter is recommended because wireless charging loses some energy as heat, so the input needs room above 65 W.</p>
+        </div>
+
+        <div class="specs-section">
+          <h2 class="section-label">Battery (included)</h2>
+          <div class="table-scroll">
+            <table class="specs-table">
+              <caption class="visually-hidden">Battery specs</caption>
+              <tbody>
+                <tr><th scope="row">Capacity</th><td>20,000 mAh, about 74 Wh</td></tr>
+                <tr><th scope="row">Runtime with everything charging</th><td>About 2 hours <span class="estimate">(estimate)</span></td></tr>
+                <tr><th scope="row">Phone charges</th><td>About 3 full charges <span class="estimate">(estimate)</span></td></tr>
+                <tr><th scope="row">Air travel</th><td>Under the FAA 100 Wh limit. <strong>Carry-on only:</strong> spare lithium batteries can't go in checked bags</td></tr>
+                <tr><th scope="row">Battery weight</th><td>About 1 lb <span class="estimate">(estimate)</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="specs-section">
+          <h2 class="section-label">Size and build</h2>
+          <!-- Weight with the battery is the 1.5 to 2 lb from the brief plus the battery's 1 lb.
+               It's our own addition, so the team should confirm it. -->
+          <div class="table-scroll">
+            <table class="specs-table">
+              <caption class="visually-hidden">Size and build specs</caption>
+              <tbody>
+                <tr><th scope="row">Closed</th><td>12" x 6" x 3"</td></tr>
+                <tr><th scope="row">Open</th><td>36" x 18"</td></tr>
+                <tr><th scope="row">Panels</th><td>9 panels, each 12" x 6", in a 3 x 3 grid</td></tr>
+                <tr><th scope="row">Fold</th><td>Sides fold in first, then the ends</td></tr>
+                <tr><th scope="row">Thickness budget</th><td>3" closed / 9 layers = 1/3" per panel, about 8.5 mm</td></tr>
+                <tr><th scope="row">Weight without the battery</th><td>About 1.5 to 2 lb <span class="estimate">(estimate)</span></td></tr>
+                <tr><th scope="row">Weight with the included battery</th><td>About 2.5 to 3 lb <span class="estimate">(estimate)</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="specs-note">The open mat needs a 36" surface, like a library table, dorm desk or work desk.</p>
+        </div>
+
+        <div class="specs-section">
+          <h2 class="section-label">Materials and colors</h2>
+          <div class="table-scroll">
+            <table class="specs-table">
+              <caption class="visually-hidden">Materials and the colors each comes in</caption>
+              <tbody id="materials-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="specs-section">
+          <h2 class="section-label">Layout of the open mat</h2>
+          <div class="table-scroll" role="region" aria-label="Layout of the open mat. Scrolls sideways on small screens." tabindex="0">
+            <table class="specs-table layout-table">
+              <caption class="visually-hidden">What is in each of the nine panels of the open mat</caption>
+              <thead>
+                <tr><td></td><th scope="col">Left column</th><th scope="col">Middle column</th><th scope="col">Right column</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Top row</th><td>Storage: cable loops, pens, small charger</td><td>Qi2 phone pad</td><td>Tablet stand, folds flat</td></tr>
+                <tr><th scope="row">Middle row</th><td>Storage: cable coils</td><td>Open workspace</td><td>Watch pad + earbuds pad</td></tr>
+                <tr><th scope="row">Bottom row</th><td>Storage: mesh pockets</td><td>Open workspace</td><td>Power hub + battery bay</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="specs-note scroll-hint">Swipe sideways on the table to see every column.</p>
+          <p class="specs-note">The open workspace covers the middle two panels and fits a 13 to 14 inch laptop.</p>
+        </div>
+
+        <div class="specs-section">
+          <h2 class="section-label">Inside a panel, top to bottom</h2>
+          <ol class="layer-list">
+            <li>Fabric surface</li>
+            <li>Charging coils</li>
+            <li>Ferrite shielding</li>
+            <li>Thermal layer</li>
+            <li>Power management board</li>
+            <li>Structural backing</li>
+            <li>Outer fabric</li>
+          </ol>
+        </div>
+
+        <div class="specs-section">
+          <h2 class="section-label">Common questions</h2>
+          <dl class="faq">
+            <dt>Can it charge everything at full speed at once?</dt>
+            <dd>Everything shares 65 W. The phone, watch and earbuds pads get power first, and the USB-C port gets the rest, which is 30 W with all pads in use.</dd>
+            <dt>Can I fly with it?</dt>
+            <dd>Yes. The battery is 74 Wh, under the 100 Wh FAA limit. Keep it in your carry-on, not checked luggage.</dd>
+            <dt>What adapter do I need?</dt>
+            <dd>A USB-C PD adapter. 100 W is recommended.</dd>
+          </dl>
+        </div>
       </div>
     </section>
   </main>
@@ -77,6 +206,7 @@
 
   <script src="js/products.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/specs.js"></script>
   <script src="js/nav.js"></script>
 </body>
 </html>

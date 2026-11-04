@@ -35,6 +35,17 @@ function casePrice(material) {
   return Math.min.apply(null, prices);
 }
 
+// Colors a material comes in, taken from the products (no repeats)
+function colorsFor(material) {
+  const colors = [];
+  PRODUCTS.forEach(function (p) {
+    if (p.type === "PortaFold" && p.material === material && colors.indexOf(p.color) === -1) {
+      colors.push(p.color);
+    }
+  });
+  return colors;
+}
+
 // 4999 -> "$4,999.00". Money is always shown with two decimals.
 function formatPrice(amount) {
   return new Intl.NumberFormat("en-US", {

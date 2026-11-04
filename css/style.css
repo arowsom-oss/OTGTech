@@ -822,6 +822,152 @@ a {
   white-space: nowrap;   /* keep OTG-XXXXXXXX on one line */
 }
 
+/* ---------- Specs page ---------- */
+.specs-intro {
+  max-width: 60ch;
+  margin: 0;
+  color: var(--text-dim);
+}
+
+.specs-section {
+  margin-top: 36px;
+}
+
+.specs-section h2 {
+  margin: 0 0 12px;
+}
+
+.specs-section p {
+  max-width: 70ch;
+}
+
+.specs-note {
+  color: var(--text-dim);
+}
+
+.estimate {
+  color: var(--amber);
+  font-size: 0.9em;
+}
+
+/* Every table sits in a box. On a small screen a wide table scrolls inside its box, not the page. */
+.table-scroll {
+  overflow-x: auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.specs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.specs-table th,
+.specs-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.specs-table tr:last-child th,
+.specs-table tr:last-child td {
+  border-bottom: none;
+}
+
+.specs-table tbody th {
+  width: 34%;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.specs-table thead th {
+  color: var(--blue-light);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.layout-table {
+  min-width: 560px;
+}
+
+.layout-table tbody th {
+  width: auto;
+}
+
+/* The power budget bar */
+.power-bar {
+  display: flex;
+  gap: 3px;
+  height: 22px;
+  margin: 4px 0 14px;
+}
+
+.power-seg {
+  min-width: 6px;
+  border-radius: 4px;
+}
+
+.power-phone { background: #3ddc84; }
+.power-watch { background: #2fb36a; }
+.power-buds  { background: #238a52; }
+.power-usbc  { background: var(--blue); }
+
+.power-legend {
+  display: grid;
+  gap: 6px;
+  max-width: 360px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.power-legend li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.power-legend strong {
+  margin-left: auto;
+}
+
+.power-total {
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-weight: 700;
+}
+
+.legend-swatch {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.layer-list {
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.faq dt {
+  margin-top: 16px;
+  font-weight: 700;
+}
+
+.faq dd {
+  margin: 4px 0 0;
+  max-width: 70ch;
+  color: var(--text-dim);
+}
+
+/* The "swipe sideways" hint is only for phones */
+.scroll-hint {
+  display: none;
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--card);
@@ -960,5 +1106,12 @@ a {
 @media (max-width: 760px) {
   .checkout-layout {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .scroll-hint {
+    display: block;
+    margin-bottom: 0;
   }
 }
