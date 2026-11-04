@@ -267,6 +267,102 @@ a {
   color: var(--text-dim);
 }
 
+/* ---------- About page ----------
+   The cards, the call-to-action box and the hover and keyboard styles are based on the
+   About page written by sikandara09 (pull request #12), in the site's colors. */
+.about-hero {
+  margin-bottom: 55px;
+  text-align: center;
+}
+
+.about-intro {
+  max-width: 650px;
+  margin: 0 auto;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+
+.about-section {
+  margin-bottom: 55px;
+  text-align: center;
+}
+
+.about-section h2,
+.about-cta h2 {
+  margin: 0 0 15px;
+  font-size: 1.9rem;
+}
+
+.about-section p {
+  max-width: 750px;
+  margin: 0 auto 12px;
+  color: var(--text-dim);
+}
+
+.about-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 35px;
+}
+
+.about-card {
+  padding: 30px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--blue);
+}
+
+.about-card h3 {
+  margin: 0 0 12px;
+  color: var(--blue-light);
+}
+
+.about-card p {
+  margin: 0;
+}
+
+.about-cta {
+  padding: 45px 20px;
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.about-cta p {
+  margin: 0 0 22px;
+  color: var(--text-dim);
+}
+
+.about-cta .button:focus-visible {
+  outline: 3px solid var(--blue-light);
+  outline-offset: 4px;
+}
+
+@media (max-width: 760px) {
+  .about-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* People who ask their device for less motion get none */
+@media (prefers-reduced-motion: reduce) {
+  .about-card {
+    transition: none;
+  }
+
+  .about-card:hover {
+    transform: none;
+  }
+}
+
 /* ---------- Home feature blurbs ---------- */
 .feature-grid {
   display: grid;

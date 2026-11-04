@@ -304,6 +304,11 @@ This replaces the brief's "3 colorways x battery yes/no" product setup. Prices w
 - **Brown swatch** on the shop page is a placeholder hex (`#5c4033`), not from the brand sheet.
 - **Carbon fiber and wireless charging:** real carbon fiber conducts electricity and can interfere with Qi charging. Keep it on the outer shell only, never over the pads. The team should confirm this before the business plan.
 
+### About page (Nov 4, 2026)
+- Written by **sikandara09** (pull request #12), then rebuilt by Claude inside the site template (header, footer, VE disclaimer, stylesheet) at Alex's request. His commit is kept in the history under his name, and his sections, wording and card and button designs are used.
+- Changes from his version: the site template, the brand colors and Inter font, the broken `products.html` link now goes to `shop.html`, and a line saying what the firm makes (the PortaFold).
+- **Still needed from the team:** the real mission wording (the sales script says "eliminate clutter and maximise efficiency", which differs from the mission on this page), and the **team and departments** (names, roles). Neither is on the page yet. The "values" are his and haven't been confirmed by the team.
+
 ### VE AI policy (pasted by Alex, Oct 22, 2026)
 > Where AI is used, schools must disclose its use and appropriately cite all sources, including AI-generated content or suggestions. AI should augment the learning experience, not replace intellectual work in the classroom and competitive event submissions.
 
