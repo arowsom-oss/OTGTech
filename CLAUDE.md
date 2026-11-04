@@ -277,6 +277,18 @@ Concepts to look up: **Luhn algorithm**, **client-side vs server-side validation
   - The order number is made in the browser and is not stored. The order is not kept anywhere (no server in this project). Reloading the confirmation shows an empty cart.
   - **Assumptions to confirm:** shipping is US-style (state and ZIP), there's no email field, and there's no shipping cost or tax. The brief lists none of those.
 
+- **Step 5a, Nov 4, 2026 (Claude built it at Alex's request):** Specs page (`specs.html`, `js/specs.js`).
+  - All the tables from section 2 with the exact values, a power budget bar with a text list under it, a Materials and colors table read from `products.js`, the open mat layout table, the panel layers, and three common questions.
+  - Updated for what the team decided: the battery is **included** (heading "Battery (included)", "Battery weight" instead of "Added weight"), and the colorways are now the materials and colors from `products.js`.
+  - `colorsFor()` moved from `js/shop.js` into `js/cart.js` so the Specs page can use it.
+  - **Not published, on purpose:** the "Does it work with Apple Watch?" question (the brief says confirm before publishing). The brief's internal "Verify" note and the known-problems list (section 3) are not on the page.
+  - **Things the team must decide, found while building it:**
+    1. **Apple Watch is unverified** but is still in the Charging table and on the home page ("watch"). If it can't be confirmed, delete one table row and the word "watch" in the power budget text and the FAQ answer.
+    2. **Weight with the included battery (2.5 to 3 lb) is our own sum** of the brief's 1.5 to 2 lb plus the battery's 1 lb. Confirm it.
+    3. **Thickness budget (1/3 inch per panel) is published next to an included 20,000 mAh battery** that is probably 0.6 to 1 inch thick. That is known problem #1 and a judge's most likely question. If the battery becomes a snap-on pack or the case gets thicker, the closed size, weights and thickness row all change.
+    4. **The layout table puts the phone pad in the middle column and the hub in the right column**, so wires cross hinges. That contradicts the home page claim "Electronics never cross a hinge" (known problem #2). Either adopt fix #2 and update the layout table, or reword the home page blurb.
+  - About and Contact pages and the fold model are still to do.
+
 ### Product name (Oct 21, 2026)
 The product is the **PortaFold**. **OTGTech** is still the firm name and the brand in the logo and hero. Use "the PortaFold" wherever the site means the product itself.
 
@@ -311,5 +323,5 @@ What this means here: the site needs an AI-use disclosure that Mrs. Kollen appro
 6. Battery fix #1 (separate snap-on pack or a thicker case): decided yet? It changes the specs page.
 7. Apple Watch charging claim: verified? Until it is, the FAQ answer stays marked unconfirmed.
 8. Current rubric from Mrs. Kollen: does it change anything on the site?
-9. Send `otgtech-fold-model.html` and `otgtech-product-sheet.html`. They're needed for step 6.
+9. Send `otgtech-fold-model.html` and `otgtech-product-sheet.html`. They're needed for step 6. The Specs page is built from the brief's section 2 text. `otgtech-product-sheet.html` would let us check it against the team's one-page sheet.
 10. Hosting: GitHub Pages, chosen Oct 20. `main` exists. Alex still has to set `main` as the default branch, decide public vs private, turn on Pages from `main` / root, and test the site on school Wi-Fi. New work goes on a feature branch and gets a PR into `main`.

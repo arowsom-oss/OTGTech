@@ -28,17 +28,6 @@ materialInputs.forEach(function (input) {
 
 // ---------- Prices on the page come from PRODUCTS, never typed into the HTML ----------
 
-// Colors a material comes in, taken from the products (no repeats)
-function colorsFor(material) {
-  const colors = [];
-  PRODUCTS.forEach(function (p) {
-    if (p.type === "PortaFold" && p.material === material && colors.indexOf(p.color) === -1) {
-      colors.push(p.color);
-    }
-  });
-  return colors;
-}
-
 // How much a bundle saves compared to buying its items one by one (0 if it doesn't save anything)
 function savingsAmount(sku) {
   const bundle = findProduct(sku);
