@@ -289,6 +289,12 @@ Concepts to look up: **Luhn algorithm**, **client-side vs server-side validation
     4. **The layout table puts the phone pad in the middle column and the hub in the right column**, so wires cross hinges. That contradicts the home page claim "Electronics never cross a hinge" (known problem #2). Either adopt fix #2 and update the layout table, or reword the home page blurb.
   - About and Contact pages and the fold model are still to do.
 
+### How It Folds page (Nov 9, 2026, Claude built it at Alex's request, Alex to review)
+- `how-it-folds.html` now has a video (`media/portafold-fold.mp4`, about 1.6 MB, plus a poster image) and a 5-step text description under it. Plain HTML `<video controls>`, no JavaScript, works from `file://` and GitHub Pages. The old "coming soon" box is gone. CSS was added at the end of `css/style.css` (additions only).
+- The video is a **3D concept animation** rendered from a Three.js scene (not `otgtech-fold-model.html`, which was never provided). The page says so under the video, because VE's AI policy needs accurate disclosure.
+- **It shows a design that is NOT in the brief:** three 12" x 18" panels, two folds, a leather band with the OTG badge, a USB-C port with a separate cable, a fold-flat phone stand, and all the electronics on the left panel. The Specs page, home page and shop copy still say nine 12" x 6" panels and a 12" x 6" x 3" case. **The team has to pick one design before this page is merged.** The page copy avoids numbers on purpose, so only the video disagrees.
+- The closed stack in the video is about 1 inch thick, which makes the 74 Wh battery problem (known problem #1) worse.
+
 ### Product name (Oct 21, 2026)
 The product is the **PortaFold**. **OTGTech** is still the firm name and the brand in the logo and hero. Use "the PortaFold" wherever the site means the product itself.
 
