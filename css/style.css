@@ -1211,3 +1211,40 @@ a {
     margin-bottom: 0;
   }
 }
+
+/* ---------- How It Folds page ---------- */
+.fold-intro {
+  color: var(--text-dim);
+  max-width: 60ch;
+  margin: 0 0 24px;
+}
+
+.fold-video {
+  margin: 0 0 32px;
+}
+
+.fold-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.fold-video figcaption {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.fold-steps {
+  margin: 0;
+  padding-left: 1.4em;
+  max-width: 65ch;
+  line-height: 1.6;
+}
+
+.fold-steps li {
+  margin-bottom: 10px;
+}
