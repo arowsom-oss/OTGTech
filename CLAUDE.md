@@ -292,8 +292,39 @@ Concepts to look up: **Luhn algorithm**, **client-side vs server-side validation
 ### How It Folds page (Nov 9, 2026, Claude built it at Alex's request, Alex to review)
 - `how-it-folds.html` now has a video (`media/portafold-fold.mp4`, about 1.6 MB, plus a poster image) and a 5-step text description under it. Plain HTML `<video controls>`, no JavaScript, works from `file://` and GitHub Pages. The old "coming soon" box is gone. CSS was added at the end of `css/style.css` (additions only).
 - The video is a **3D concept animation** rendered from a Three.js scene (not `otgtech-fold-model.html`, which was never provided). The page says so under the video, because VE's AI policy needs accurate disclosure.
-- **It shows a design that is NOT in the brief:** three 12" x 18" panels, two folds, a leather band with the OTG badge, a USB-C port with a separate cable, a fold-flat phone stand, and all the electronics on the left panel. The Specs page, home page and shop copy still say nine 12" x 6" panels and a 12" x 6" x 3" case. **The team has to pick one design before this page is merged.** The page copy avoids numbers on purpose, so only the video disagrees.
-- The closed stack in the video is about 1 inch thick, which makes the 74 Wh battery problem (known problem #1) worse.
+- The video shows the three-panel design. On Nov 11 Alex confirmed that design is final, and the rest of the site was updated to match (see the next entry).
+
+### Three-panel design is final (Nov 11, 2026, Claude updated the site at Alex's request, Alex to review)
+Alex confirmed the design in the How It Folds video is the final PortaFold. **It replaces the nine-panel design in sections 2, 3, 4 and 5 of the brief above.** Where the brief talks about nine 12" x 6" panels, a 3 x 3 grid, a 12" x 6" x 3" case, a storage column, a tablet stand or the panel layer list, it is out of date. The charging specs, the 65 W power budget, the 74 Wh battery and the FAA note did not change and are still used exactly as written.
+
+**The design:**
+- Three 12" x 18" panels side by side, 36" x 18" open. Each panel is about 1/3" thick, so the closed stack is 3 layers, about 12" x 18" x 1".
+- Two folds: the right panel folds over the middle, then both fold over the left panel.
+- The left panel holds ALL the electronics: a stitched pocket with a fold-flat phone stand charger, a round watch pad, an earbuds pad, a rubber strip with 2 USB-C + 1 USB-A, a padded leather battery door, and a USB-C port on the left edge for the cable. The cable is sold separately (it's the $50 Wired Cord).
+- The middle and right panels are plain blue-grey felt in leather binding with cream stitching.
+- A flat stitched leather band (about 2") with the round OTG badge wraps the closed stack. Leather outer (brown in the video). No handle, buckles or zippers.
+
+**Files changed:**
+- `index.html`: the "Clean 3x3 Fold" blurb is now "Two Simple Folds" (three 12" x 18" panels, about 12" x 18" x 1" closed, electronics on one panel so no wires cross a fold). The "Smart Organization" blurb no longer mentions a storage column. The meta description and footer say "a case" instead of "a pencil case".
+- `specs.html`: Size and build table rewritten (closed size, panels, fold, thickness, closure). Both case weight rows removed. Layout table is now three columns (left, middle, right panel) with what's on each and how it folds. The 13 to 14 inch laptop note and the "Inside a panel" layer list are removed.
+- `how-it-folds.html`: the 5 steps match the video (unplug, phone off and stand flat, right over middle, both over left, band wraps). The cable links to the shop. The AI disclosure caption is unchanged and still accurate.
+- `shop.html`: the Wired Cord text says the PortaFold doesn't come with a cable. The product blurb says "A case" instead of "A pencil case".
+- `about.html`, `cart.html`, `checkout.html`, `contact.html`: "pencil case" changed to "case" (footer, and the About intro). A 12" x 18" x 1" flat stack isn't a pencil case.
+- `css/style.css`: removed the unused `.layer-list` rule.
+- `js/specs.js` needed no change (it only fills in the Materials and colors table). `js/products.js`, the cart, the Luhn check and the checkout logic were not touched. The video and poster were not swapped.
+
+**Still open, team decisions (none of these are on the public site):**
+1. **Battery thickness (known problem #1) is now harder.** A 20,000 mAh / 74 Wh pack is probably 0.6 to 1 inch thick, and each panel is about 1/3". The padded leather battery door is on the left panel, but nobody has shown the battery fits behind it. Options: a thinner or smaller battery, a thicker left panel, or a snap-on pack. Any of these can change the closed size and the battery specs.
+2. **Weight.** The old 1.5 to 2 lb (and 2.5 to 3 lb with the battery) was for nine panels, so both rows are off the Specs page. The battery's own "about 1 lb (estimate)" is still shown. The team needs a new case weight.
+3. **Apple Watch.** Still unverified. The design has a round watch pad, and the Charging table and home page still say "watch". If it can't be confirmed, see Step 5a item 1.
+4. **Where the band goes while the mat is open.** It wraps the closed stack, but nothing says where it's stored when the mat is in use.
+5. **Laptop fit.** The old note said the workspace fits a 13 to 14 inch laptop. With 12" x 18" panels the team should measure before putting a laptop claim back.
+6. **Inside the electronics panel.** The old layer list (fabric, coils, ferrite, thermal, board, backing, outer fabric) was for every panel. The left panel needs its own layer list, with leather outside.
+7. **Carbon fiber version.** The video shows leather. The band, binding and felt for the carbon fiber PortaFold aren't described. The Specs page says "leather band" for both.
+8. **"Pencil case" in the brief.** Section 0 and the home copy came from the brief. The site now says "case". Confirm the team is happy with that wording.
+9. **The cable is not included**, so every buyer needs the $50 Wired Cord or their own cable. Decide whether the shop should say any USB-C PD cable works (that's a claim the team would have to check first).
+
+**Step 5a items 2 to 4 above are replaced by this list.** Item 4 (wires crossing hinges) is fixed by the new design: all the electronics are on the left panel.
 
 ### Product name (Oct 21, 2026)
 The product is the **PortaFold**. **OTGTech** is still the firm name and the brand in the logo and hero. Use "the PortaFold" wherever the site means the product itself.
@@ -305,7 +336,7 @@ This replaces the brief's "3 colorways x battery yes/no" product setup. Prices w
 - **Battery:** the 74 Wh battery is included in every PortaFold. It is no longer an option. That makes known problem #1 (the battery doesn't fit) apply to every unit.
 - **One of each material:** $999 (saves $99). The customer picks the colors.
 - **Office bundle:** 5 leather + 5 carbon fiber for $4,999 (separately $5,490, saves $491). The customer picks the colors.
-- **Wired cord:** $50, sold as its own accessory (a spare or replacement cable to charge a MacBook from the PortaFold, or to charge the PortaFold). It's a separate product, not an add-on to a case.
+- **Wired cord:** $50, sold as its own accessory (a cable to charge a MacBook from the PortaFold, or to charge the PortaFold). It's a separate product, not an add-on to a case. Since Nov 11 the PortaFold doesn't come with a cable, so this is the cable, not a spare.
 - **Price format:** Alex chose whole-dollar numbers (`499`) with `toFixed(2)` for display, not cents. Whole numbers add exactly in JavaScript, so there's no floating-point error unless a price ever gets cents.
 - **Brown swatch** on the shop page is a placeholder hex (`#5c4033`), not from the brand sheet.
 - **Carbon fiber and wireless charging:** real carbon fiber conducts electricity and can interfere with Qi charging. Keep it on the outer shell only, never over the pads. The team should confirm this before the business plan.
@@ -314,6 +345,7 @@ This replaces the brief's "3 colorways x battery yes/no" product setup. Prices w
 - Written by **sikandara09** (pull request #12), then rebuilt by Claude inside the site template (header, footer, VE disclaimer, stylesheet) at Alex's request. His commit is kept in the history under his name, and his sections, wording and card and button designs are used.
 - Changes from his version: the site template, the brand colors and Inter font, the broken `products.html` link now goes to `shop.html`, and a line saying what the firm makes (the PortaFold).
 - **Still needed from the team:** the real mission wording (the sales script says "eliminate clutter and maximise efficiency", which differs from the mission on this page), and the **team and departments** (names, roles). Neither is on the page yet. The "values" are his and haven't been confirmed by the team.
+- **Team note (Nov 11, 2026):** Alex took on building the product visuals and the site's media himself, to support Mrs. Kollen and the team. (The How It Folds video was made with AI-assisted code, as its caption discloses.) This is for the log only, not the public page.
 
 ### VE AI policy (pasted by Alex, Oct 22, 2026)
 > Where AI is used, schools must disclose its use and appropriately cite all sources, including AI-generated content or suggestions. AI should augment the learning experience, not replace intellectual work in the classroom and competitive event submissions.
@@ -331,7 +363,7 @@ What this means here: the site needs an AI-use disclosure that Mrs. Kollen appro
 3. ~~Instagram handle~~: confirmed `otgtech.ven` on Oct 22.
 4. Prices: when does Accounting have COGS and margin numbers?
 5. About page: mission statement, team member names and roles, and departments. None of these are in the brief.
-6. Battery fix #1 (separate snap-on pack or a thicker case): decided yet? It changes the specs page.
+6. Battery fix #1 (now: does a 74 Wh battery fit in a ~1/3" left panel behind the battery door?): decided yet? It changes the specs page. See the Nov 11 three-panel entry for the other open design decisions.
 7. Apple Watch charging claim: verified? Until it is, the FAQ answer stays marked unconfirmed.
 8. Current rubric from Mrs. Kollen: does it change anything on the site?
 9. Send `otgtech-fold-model.html` and `otgtech-product-sheet.html`. They're needed for step 6. The Specs page is built from the brief's section 2 text. `otgtech-product-sheet.html` would let us check it against the team's one-page sheet.
