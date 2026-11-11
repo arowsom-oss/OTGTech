@@ -368,3 +368,6 @@ What this means here: the site needs an AI-use disclosure that Mrs. Kollen appro
 8. Current rubric from Mrs. Kollen: does it change anything on the site?
 9. Send `otgtech-fold-model.html` and `otgtech-product-sheet.html`. They're needed for step 6. The Specs page is built from the brief's section 2 text. `otgtech-product-sheet.html` would let us check it against the team's one-page sheet.
 10. Hosting: GitHub Pages, chosen Oct 20. `main` exists. Alex still has to set `main` as the default branch, decide public vs private, turn on Pages from `main` / root, and test the site on school Wi-Fi. New work goes on a feature branch and gets a PR into `main`.
+
+### Copy audit (Nov 11, 2026, Claude, at Alex's request)
+Read every page and `js/` file against the final three-panel design. Everything matched except the Specs "Closure" row, which said "stitched leather band"; the carbon fiber version isn't stitched or leather, so it now says "A flat band, about 2" wide, with the round OTG badge". The How It Folds steps still say "leather band" because they describe the video, which shows the leather version. Not changed, still the team's call: "no wires cross a fold" (home page, inferred from all electronics being on one panel), "No tangled cords", the Apple Watch mention in the Charging table, and the 1/3" panel thickness next to the 74 Wh battery.
