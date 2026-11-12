@@ -1043,11 +1043,6 @@ a {
   border-radius: 4px;
 }
 
-.layer-list {
-  margin: 0;
-  padding-left: 1.4em;
-}
-
 .faq dt {
   margin-top: 16px;
   font-weight: 700;
@@ -1247,4 +1242,32 @@ a {
 
 .fold-steps li {
   margin-bottom: 10px;
+}
+
+/* ---------- Product photo (concept render) ---------- */
+.product-image img.product-photo,
+.product-image img[src$="portafold-hero.jpg"] {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.image-note,
+.home-photo figcaption {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin: 10px 0 0;
+}
+
+.home-photo {
+  margin: 0;
+  text-align: center;
+}
+
+.home-photo img {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
 }
