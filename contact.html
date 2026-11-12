@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,6 +45,29 @@
           <li><strong>TikTok:</strong> <a href="https://www.tiktok.com/@otgtech" target="_blank" rel="noopener">@otgtech</a></li>
           <li><strong>Instagram:</strong> <a href="https://www.instagram.com/otgtech.ven/" target="_blank" rel="noopener">@otgtech.ven</a></li>
         </ul>
+
+        <section class="page-section">
+          <div class="container">
+            <h2 class="section-label">Send us a message</h2>
+            <form id="contact-form" novalidate>
+              <label class="form-field" for="contact-name">Name
+                <input type="text" id="contact-name" autocomplete="name">
+              </label>
+
+              <label class="form-field" for="contact-email">Email
+                <input type="email" id="contact-email" autocomplete="email">
+              </label>
+
+              <label class="form-field" for="contact-message">Message
+                <textarea id="contact-message" rows="5"></textarea>
+              </label>
+
+              <button type="submit" class="button">Send</button>
+              <p id="contact-status" class="status-message" role="status"></p>
+            </form>
+          </div>
+        </section>
+
       </div>
     </section>
   </main>
@@ -83,5 +107,6 @@
   <script src="js/products.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/nav.js"></script>
+  <script src="js/contact.js"></script>
 </body>
 </html>
