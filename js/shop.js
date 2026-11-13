@@ -7,15 +7,13 @@ const brown = document.querySelector('input[value="Brown"]');
 const black = document.querySelector('input[value="Black"]');
 
 // Run this every time the material changes
-materialInputs.forEach(function (input) {
-  input.addEventListener("change", function () {
-    if (input.value === "Carbon fiber") {
-      brown.disabled = true;
-      if (brown.checked) {
-        black.checked = true;
-      }
-    } else {
-      brown.disabled = false;
+inputs.forEach((input) => {
+  input.addEventListener("change", updatePrice);
+  input.addEventListener("change", updatePhoto); // ADD THIS
+});
+
+updatePrice();
+updatePhoto(); // ADD THIS
     }
   });
 });
