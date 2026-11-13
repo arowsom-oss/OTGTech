@@ -132,6 +132,50 @@ caseForm.querySelectorAll('input[name="material"], input[name="color"]').forEach
 });
 updatePrice();
 
+// Product photos indexed by SKU.
+const PRODUCT_PHOTOS = {
+  "PF-LTH-BRN": {
+    file: "images/portafold-hero.jpg",
+    alt: "Brown leather PortaFold",
+    caption: "PortaFold in Brown Leather"
+  },
+  "PF-LTH-BLK": {
+    file: "images/portafold-leather-black.jpg",
+    alt: "Black leather PortaFold",
+    caption: "PortaFold in Black Leather"
+  },
+  "PF-LTH-GRY": {
+    file: "images/portafold-leather-gray.jpg",
+    alt: "Gray leather PortaFold",
+    caption: "PortaFold in Gray Leather"
+  },
+  "PF-CF-BLK": {
+    file: "images/portafold-carbon-black.jpg",
+    alt: "Black carbon fiber PortaFold",
+    caption: "PortaFold in Black Carbon Fiber"
+  },
+  "PF-CF-GRY": {
+    file: "images/portafold-carbon-gray.jpg",
+    alt: "Gray carbon fiber PortaFold",
+    caption: "PortaFold in Gray Carbon Fiber"
+  }
+};
+function updatePhoto() {
+  const product = selectedCase();
+
+  const photo =
+    PRODUCT_PHOTOS[product.sku] ||
+    PRODUCT_PHOTOS["PF-LTH-BRN"];
+
+  const image = document.getElementById("product-image");
+  const caption = document.getElementById("image-note");
+
+  if (!image || !caption) return;
+
+  image.src = photo.file;
+  image.alt = photo.alt;
+  caption.textContent = photo.caption;
+}
 caseForm.addEventListener("submit", function (event) {
   event.preventDefault();   // stay on the page instead of reloading it
 
