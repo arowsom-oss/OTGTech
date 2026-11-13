@@ -40,25 +40,34 @@
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-text">
-          <!-- The h1 holds the brand name (the brief's hero headline) and the tagline (the brief's subhead).
-               The tagline is the big line people read first. -->
+          <!-- The one h1 on the page: the firm (small, in the logo style) and the product name (big).
+               The tagline (the brief's subhead) is a plain paragraph right under it. -->
           <h1 class="hero-title">
-            <span class="hero-brand">OTG<span class="tech">Tech</span> PortaFold</span>
-            <span class="hero-tagline"><span>Organize.</span> <span>Charge.</span> <span>Go.</span></span>
+            <span class="hero-brand">OTG<span class="tech">Tech</span></span>
+            <span class="hero-product">PortaFold</span>
           </h1>
+          <p class="hero-tagline"><span>Organize.</span> <span>Charge.</span> <span>Go.</span></p>
           <p class="hero-lead">A case that unfolds into a 36" x 18" desk mat, with wireless charging and a power hub built in.</p>
+          <!-- The price sits right above the Shop button. The amount is filled in by js/home.js
+               from products.js, so a price is never typed into the HTML. -->
+          <p class="hero-price">
+            <span class="hero-price-from">From</span>
+            <span class="hero-price-amount" id="hero-price"></span>
+            <span class="hero-price-note">74 Wh battery included</span>
+          </p>
           <div class="hero-buttons">
             <a href="shop.html" class="button button-large">Shop the PortaFold</a>
             <a href="how-it-folds.html" class="button button-outline button-large">See how it folds</a>
           </div>
-          <!-- Filled in by js/home.js from products.js, so a price is never typed into the HTML -->
-          <p class="hero-price"><span id="hero-price"></span> · 74 Wh battery included</p>
         </div>
 
         <figure class="hero-photo">
-          <img src="media/portafold-fold-poster.jpg"
-               alt="The leather PortaFold open as a desk mat: a phone on its stand, a watch pad, an earbuds pad and ports on the left panel, and two plain felt panels"
-               width="1600" height="1067" fetchpriority="high">
+          <!-- .photo-tint gives the render's white studio background a light-blue tint (see style.css) -->
+          <div class="photo-tint">
+            <img src="media/portafold-fold-poster.jpg"
+                 alt="The leather PortaFold open as a desk mat: a phone on its stand, a watch pad, an earbuds pad and ports on the left panel, and two plain felt panels"
+                 width="1600" height="1067" fetchpriority="high">
+          </div>
           <figcaption>Concept render. The final PortaFold may look different.</figcaption>
         </figure>
       </div>
@@ -124,9 +133,11 @@
         </div>
 
         <figure class="steps-photo">
-          <img src="images/portafold-leather-black.jpg"
-               alt="The black leather PortaFold folded shut, with a flat band and the round OTG badge across the top"
-               width="1600" height="1067" loading="lazy">
+          <div class="photo-tint">
+            <img src="images/portafold-leather-black.jpg"
+                 alt="The black leather PortaFold folded shut, with a flat band and the round OTG badge across the top"
+                 width="1600" height="1067" loading="lazy">
+          </div>
           <figcaption>Closed: about 12" x 18" x 1". Concept render.</figcaption>
         </figure>
       </div>
@@ -138,8 +149,13 @@
         <p class="section-label">Choose your material</p>
         <h2 class="home-heading">Leather or carbon fiber.</h2>
         <div class="material-grid">
+          <!-- The card photos have empty alt text on purpose: the card's own words
+               ("Leather", the price, the colors) already name it, so a screen reader
+               doesn't read the same card twice. -->
           <a class="material-card" href="shop.html">
-            <img src="images/portafold-hero.jpg" alt="The brown leather PortaFold, closed, with cream stitching" width="1600" height="1067" loading="lazy">
+            <span class="photo-tint">
+              <img src="images/portafold-hero.jpg" alt="" width="1600" height="1067" loading="lazy">
+            </span>
             <span class="material-body">
               <span class="material-name">Leather</span>
               <span class="material-price" data-material-price="Leather"></span>
@@ -148,7 +164,9 @@
             </span>
           </a>
           <a class="material-card" href="shop.html">
-            <img src="images/portafold-carbon-black.jpg" alt="The black carbon fiber PortaFold, closed" width="1600" height="1067" loading="lazy">
+            <span class="photo-tint">
+              <img src="images/portafold-carbon-black.jpg" alt="" width="1600" height="1067" loading="lazy">
+            </span>
             <span class="material-body">
               <span class="material-name">Carbon fiber</span>
               <span class="material-price" data-material-price="Carbon fiber"></span>

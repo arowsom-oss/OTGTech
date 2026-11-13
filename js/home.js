@@ -3,10 +3,11 @@
 // Everything comes from PRODUCTS (products.js) using helpers in cart.js,
 // so when a price changes in products.js the home page changes too.
 
-// "From $499.00" in the hero: the cheapest PortaFold of any material
+// Hero price: the cheapest PortaFold of any material, like "$499.00".
+// The word "From" is already in the HTML, next to this span.
 const heroPrice = document.getElementById("hero-price");
 const lowest = Math.min(casePrice("Leather"), casePrice("Carbon fiber"));
-heroPrice.textContent = "From " + formatPrice(lowest);
+heroPrice.textContent = formatPrice(lowest);
 
 // Material cards: <span data-material-price="Leather"> gets "$499.00"
 document.querySelectorAll("[data-material-price]").forEach(function (span) {
