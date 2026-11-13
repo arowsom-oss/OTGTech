@@ -19,3 +19,20 @@ materialInputs.forEach(function (input) {
     }
   });
 });
+// Map each PortaFold SKU to its product image and caption.
+function updatePhoto() {
+  const product = selectedCase();
+
+  const photo =
+    PRODUCT_PHOTOS[product.sku] ||
+    PRODUCT_PHOTOS["PF-LTH-BRN"];
+
+  const image = document.getElementById("product-image");
+  const caption = document.getElementById("image-note");
+
+  if (!image || !caption) return;
+
+  image.src = photo.file;
+  image.alt = photo.alt;
+  caption.textContent = photo.caption;
+}
