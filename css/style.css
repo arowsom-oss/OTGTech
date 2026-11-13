@@ -18,6 +18,22 @@
   --green: #3ddc84;       /* charging */
   --amber: #ffb547;       /* power / battery */
 
+  /* ---------- Logo colors ----------
+     Sampled from images/otgtech-logo.webp (the round OTG badge) with Python PIL.
+     They ADD to the brand colors above; nothing above changed. */
+  --logo-navy: #01173b;      /* deep navy, the inside of the badge */
+  --logo-royal: #013997;     /* royal blue, the badge ring */
+  --logo-electric: #1090ee;  /* electric blue, the bright edge of the letters */
+  --logo-glow: #96d0f9;      /* pale cyan glow around the badge */
+  --logo-chrome: #ecf1f6;    /* chrome / silver highlight on the letters */
+
+  /* Light-blue backdrop for the product photos on the home page.
+     Both are --blue-light (#6fb1ff) mixed with white:
+     --photo-tint-center is about 18% light blue, --photo-tint-edge about 40%.
+     The paler middle keeps the brown leather warm; the edges carry the blue. */
+  --photo-tint-center: #e6f2ff;
+  --photo-tint-edge: #c2deff;
+
   --max-width: 1100px;
   --radius: 10px;
 }
@@ -87,6 +103,20 @@ a {
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+/* A thin logo-blue line along the bottom of the header, on every page.
+   It sits on top of the existing 1px border, so the header keeps its height. */
+.site-header::after {
+  content: "";
+  position: absolute;                /* sticky counts as positioned, so this sticks to the header */
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--logo-electric) 30%, var(--logo-glow) 50%, var(--logo-electric) 70%, transparent);
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 .header-inner {
@@ -1207,11 +1237,60 @@ a {
   text-align: center;
 }
 
+/* Home page main buttons: a logo-blue gradient with a soft glow.
+   The text stays dark (var(--bg)); it is 5.4:1 or better on every part of the gradient.
+   The 1px see-through border makes it the same height as the outline button next to it. */
+.home .button:not(.button-outline) {
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, var(--logo-glow), var(--blue) 50%, var(--logo-electric));
+  box-shadow: 0 6px 24px rgba(16, 144, 238, 0.35);
+}
+
+.home .button:not(.button-outline):hover {
+  background: var(--logo-glow);
+}
+
+/* Outline buttons on the home page get a faint chrome edge */
+.home .button-outline {
+  border-color: rgba(236, 241, 246, 0.3);
+}
+
+/* Home section labels: the logo's glow blue, with a short electric-blue line in front */
+.home .section-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--logo-glow);
+}
+
+.home .section-label::before {
+  content: "";
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--logo-electric), var(--logo-glow));
+}
+
+/* The closing box centers its label, so the line goes on both sides there */
+.home-cta .section-label {
+  justify-content: center;
+}
+
+.home-cta .section-label::after {
+  content: "";
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--logo-glow), var(--logo-electric));
+}
+
 /* ---------- 1. Hero ---------- */
 .hero {
   padding: 64px 0 56px;
-  /* A soft brand-blue glow behind the product photo */
-  background: radial-gradient(ellipse at 75% 40%, rgba(43, 140, 255, 0.14), transparent 60%);
+  /* Two soft glows in logo blues: electric behind the photo, royal behind the words */
+  background:
+    radial-gradient(ellipse at 75% 45%, rgba(16, 144, 238, 0.22), transparent 55%),
+    radial-gradient(ellipse at 10% 30%, rgba(1, 57, 151, 0.35), transparent 50%);
 }
 
 .hero-inner {
@@ -1225,32 +1304,53 @@ a {
   margin: 0 0 20px;
 }
 
-/* "OTGTech PortaFold": small line above the tagline, in the logo style */
+/* "OTGTech": small line above the product name, in the logo style */
 .hero-brand {
   display: block;
-  margin-bottom: 12px;
-  color: var(--text-dim);
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
 .hero-brand .tech {
   color: var(--blue);
 }
 
-/* "Organize. Charge. Go.": the biggest words on the page */
-.hero-tagline {
+/* "PortaFold": the biggest word on the page.
+   Plain chrome-white by default. Browsers that can clip a background to the
+   letters (all current ones) get a chrome-to-blue gradient, like the logo's letters. */
+.hero-product {
   display: block;
-  font-size: 3.6rem;
+  color: var(--logo-chrome);
+  font-size: 4.5rem;
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.02;
+  letter-spacing: -0.045em;
+  line-height: 1;
 }
 
-/* Each word on its own line, like a short list: Organize. / Charge. / Go. */
-.hero-tagline span {
-  display: block;
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .hero-product {
+    background: linear-gradient(100deg, var(--logo-chrome) 20%, var(--logo-glow) 55%, var(--logo-electric) 95%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* "Organize. Charge. Go.": big, on one line under the name */
+.hero-tagline {
+  margin: 0 0 16px;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+/* "Go." in the logo's pale glow blue, so the line ends on the brand color */
+.hero-tagline span:last-child {
+  color: var(--logo-glow);
 }
 
 .hero-lead {
@@ -1272,22 +1372,71 @@ a {
   font-size: 0.95rem;
 }
 
-#hero-price {
+/* "From $499.00": big and bold, but smaller than the tagline */
+.hero-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0 0 20px;
+}
+
+.hero-price-from {
+  color: var(--text-dim);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.hero-price-amount {
   color: var(--text);
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.hero-price-note {
+  color: var(--text-dim);
+  font-size: 0.95rem;
 }
 
 .hero-photo {
   margin: 0;
 }
 
-/* The renders have a light background, so they sit on the dark page like a lit product photo */
-.hero-photo img,
-.steps-photo img {
+/* ---------- Light-blue photo backdrop (home page only) ----------
+   The renders have a near-white studio background. On their own they look like
+   plain white boxes on the dark page. Two steps turn that white into light blue:
+   1. .photo-tint paints a light-blue gradient behind the photo.
+   2. mix-blend-mode: multiply on the <img> multiplies each photo pixel by the
+      color behind it. White x light blue = light blue, but dark colors (the
+      product, its shadow) stay almost the same. So only the background changes.
+   isolation: isolate keeps the blend inside .photo-tint, so the photo never
+   mixes with the dark page behind it. */
+.home .photo-tint {
+  display: block;
+  isolation: isolate;
+  overflow: hidden;                  /* keeps the photo inside the rounded corners */
+  background: radial-gradient(ellipse at 50% 45%, var(--photo-tint-center) 30%, var(--photo-tint-edge) 100%);
+}
+
+.home .photo-tint img {
   display: block;
   width: 100%;
+  mix-blend-mode: multiply;
+}
+
+/* The hero and How-it-works photos are their own rounded panels with a shadow
+   and a thin chrome edge (first shadow, 1px, no blur) */
+.hero-photo .photo-tint,
+.steps-photo .photo-tint {
   border-radius: 14px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 0 1px rgba(236, 241, 246, 0.25), 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+/* The hero photo also gets a soft electric-blue glow, like the light around the logo */
+.hero-photo .photo-tint {
+  box-shadow: 0 0 0 1px rgba(236, 241, 246, 0.25), 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 90px rgba(16, 144, 238, 0.3);
 }
 
 .hero-photo figcaption,
@@ -1313,7 +1462,8 @@ a {
 
 .fact-strip li {
   padding: 20px 16px;
-  background: var(--card);
+  /* Slightly lighter at the top, like light on a chrome edge */
+  background: linear-gradient(180deg, var(--raised), var(--card));
   color: var(--text-dim);
   text-align: center;
 }
@@ -1343,12 +1493,18 @@ a {
   gap: 16px;
 }
 
+/* Chrome-like card edges (feature cards and material cards):
+   the border is see-through, and a second background (a silver-to-blue
+   gradient) shows through it. The first background fills the card.
+   padding-box = inside the border only, border-box = under the border too. */
 .feature {
   padding: 24px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-top: 3px solid var(--blue);   /* colored top edge, blue by default */
+  border: 1px solid transparent;
+  border-top: 3px solid var(--blue);   /* colored top edge, blue by default; it covers the gradient */
   border-radius: var(--radius);
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(160deg, rgba(236, 241, 246, 0.35), var(--border) 35%, var(--border) 65%, rgba(16, 144, 238, 0.6)) border-box;
 }
 
 .feature-green {
@@ -1445,16 +1601,21 @@ a {
   display: flex;
   flex-direction: column;
   overflow: hidden;                  /* keeps the photo inside the rounded corners */
-  background: var(--card);
-  border: 1px solid var(--border);
+  border: 1px solid transparent;     /* chrome-like edge, same trick as .feature */
   border-radius: 14px;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(160deg, rgba(236, 241, 246, 0.35), var(--border) 35%, var(--border) 65%, rgba(16, 144, 238, 0.6)) border-box;
   color: var(--text);
   text-decoration: none;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
+/* On hover the edge turns logo blue (the second background is the edge, see above) */
 .material-card:hover {
-  border-color: var(--blue);
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(160deg, var(--logo-glow), var(--logo-electric)) border-box;
   transform: translateY(-3px);
 }
 
@@ -1463,14 +1624,11 @@ a {
   outline-offset: 3px;
 }
 
-.material-card img {
-  display: block;
-  width: 100%;
-}
 
 .material-body {
   display: grid;
   grid-template-columns: 1fr auto;   /* name on the left, price on the right */
+  align-items: baseline;             /* the name and the bigger price share one baseline */
   gap: 4px 16px;
   padding: 20px 24px 24px;
 }
@@ -1482,8 +1640,10 @@ a {
 }
 
 .material-price {
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .material-colors {
@@ -1514,11 +1674,16 @@ a {
 }
 
 /* ---------- 6. Closing call to action ---------- */
+/* The closing box: royal blue from the logo fading into the raised-panel color,
+   with a chrome-to-blue edge (same see-through border trick as the cards) */
 .home-cta {
   padding: 56px 24px;
-  background: var(--raised);
-  border: 1px solid var(--border);
+  border: 1px solid transparent;
   border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(1, 57, 151, 0.6), transparent 70%) padding-box,
+    linear-gradient(var(--raised), var(--raised)) padding-box,
+    linear-gradient(160deg, rgba(236, 241, 246, 0.4), var(--border) 40%, rgba(16, 144, 238, 0.7)) border-box;
   text-align: center;
 }
 
@@ -1553,8 +1718,8 @@ a {
     grid-template-columns: 1fr 1fr;
   }
 
-  .hero-tagline {
-    font-size: 3rem;
+  .hero-product {
+    font-size: 3.75rem;
   }
 }
 
@@ -1580,8 +1745,12 @@ a {
     gap: 28px;
   }
 
+  .hero-product {
+    font-size: 3.25rem;
+  }
+
   .hero-tagline {
-    font-size: 2.5rem;
+    font-size: 1.6rem;
   }
 
   .steps-photo {
