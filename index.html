@@ -34,22 +34,25 @@
     </div>
   </header>
 
-  <main>
-    <!-- Hero: the words on the left, the PRODUCT on the right.
-         The badge logo is already in the header, so the hero shows the open PortaFold instead. -->
+  <main class="home">
+
+    <!-- ===== 1. Hero: what it is, the product, one main button ===== -->
     <section class="hero">
       <div class="container hero-inner">
-        <div>
-          <p class="section-label">Meet the PortaFold</p>
-          <h1>OTG<span class="tech">Tech</span></h1>
-          <p class="hero-subhead">Organize. Charge. Go.</p>
-          <p class="hero-secondary">The PortaFold is a case that unfolds into a 36" x 18" desk mat, with wireless charging and a power hub built in.</p>
+        <div class="hero-text">
+          <!-- The h1 holds the brand name (the brief's hero headline) and the tagline (the brief's subhead).
+               The tagline is the big line people read first. -->
+          <h1 class="hero-title">
+            <span class="hero-brand">OTG<span class="tech">Tech</span> PortaFold</span>
+            <span class="hero-tagline"><span>Organize.</span> <span>Charge.</span> <span>Go.</span></span>
+          </h1>
+          <p class="hero-lead">A case that unfolds into a 36" x 18" desk mat, with wireless charging and a power hub built in.</p>
           <div class="hero-buttons">
-            <a href="shop.html" class="button">Shop the PortaFold</a>
-            <a href="how-it-folds.html" class="button button-outline">See how it folds</a>
+            <a href="shop.html" class="button button-large">Shop the PortaFold</a>
+            <a href="how-it-folds.html" class="button button-outline button-large">See how it folds</a>
           </div>
-          <!-- Filled in by js/home.js from products.js, so the price is never typed twice -->
-          <p class="hero-price" id="hero-price"></p>
+          <!-- Filled in by js/home.js from products.js, so a price is never typed into the HTML -->
+          <p class="hero-price"><span id="hero-price"></span> · 74 Wh battery included</p>
         </div>
 
         <figure class="hero-photo">
@@ -61,21 +64,23 @@
       </div>
     </section>
 
-    <!-- Four quick facts, all from the Specs page -->
-    <section class="container">
+    <!-- ===== 2. Four key numbers, all from the Specs page ===== -->
+    <section class="container" aria-label="Key numbers">
       <ul class="fact-strip">
-        <li><strong>65 W</strong> shared charging</li>
-        <li><strong>74 Wh</strong> battery included</li>
+        <li><strong class="fact-green">65 W</strong> shared charging</li>
+        <li><strong class="fact-amber">74 Wh</strong> battery included</li>
         <li><strong>36" x 18"</strong> open mat</li>
         <li><strong>2 folds</strong> to close</li>
       </ul>
     </section>
 
-    <section class="page-section">
+    <!-- ===== 3. What it does. The four blurbs are the brief's feature copy. ===== -->
+    <section class="home-section">
       <div class="container">
-        <h2 class="section-label">Why the PortaFold</h2>
+        <p class="section-label">Why the PortaFold</p>
+        <h2 class="home-heading">One case. Every device. Always ready.</h2>
         <div class="feature-grid">
-          <div class="feature">
+          <div class="feature feature-green">
             <h3>Multi-Device Charging</h3>
             <p>Phone, watch, earbuds and a USB-C device at once, sharing one 65 W power budget.</p>
           </div>
@@ -87,7 +92,7 @@
             <h3>Two Simple Folds</h3>
             <p>Three 12" x 18" panels fold into one flat stack, about 12" x 18" x 1". All the electronics sit on one panel, so no wires cross a fold.</p>
           </div>
-          <div class="feature">
+          <div class="feature feature-amber">
             <h3>Travel-Ready Battery</h3>
             <p>A 74 Wh battery module is included, under the FAA 100 Wh carry-on limit.</p>
           </div>
@@ -95,24 +100,84 @@
       </div>
     </section>
 
-    <!-- Choose a material. Prices and colors come from products.js through js/home.js. -->
-    <section class="page-section">
+    <!-- ===== 4. How it works in three steps. Every fact is from the Specs page. ===== -->
+    <section class="home-section home-band">
+      <div class="container steps-layout">
+        <div>
+          <p class="section-label">How it works</p>
+          <h2 class="home-heading">Open it. Charge. Go.</h2>
+          <ol class="steps">
+            <li>
+              <h3>Open it</h3>
+              <p>Three 12" x 18" panels unfold into a 36" x 18" desk mat.</p>
+            </li>
+            <li>
+              <h3>Charge</h3>
+              <p>Your phone goes on the Qi2 stand, your earbuds on their pad, and a USB-C device in the hub. They share 65 W.</p>
+            </li>
+            <li>
+              <h3>Go</h3>
+              <p>The right panel folds over the middle, then both fold over the left. A flat band holds the stack shut.</p>
+            </li>
+          </ol>
+          <a href="how-it-folds.html" class="text-link">Watch the fold animation <span aria-hidden="true">→</span></a>
+        </div>
+
+        <figure class="steps-photo">
+          <img src="images/portafold-leather-black.jpg"
+               alt="The black leather PortaFold folded shut, with a flat band and the round OTG badge across the top"
+               width="1600" height="1067" loading="lazy">
+          <figcaption>Closed: about 12" x 18" x 1". Concept render.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===== 5. The two materials. Prices and colors come from products.js through js/home.js. ===== -->
+    <section class="home-section">
       <div class="container">
-        <h2 class="section-label">Choose your material</h2>
+        <p class="section-label">Choose your material</p>
+        <h2 class="home-heading">Leather or carbon fiber.</h2>
         <div class="material-grid">
           <a class="material-card" href="shop.html">
-            <img src="images/portafold-leather-black.jpg" alt="The black leather PortaFold, closed" width="1600" height="1067" loading="lazy">
-            <span class="material-name">Leather</span>
-            <span class="material-meta" data-material="Leather"></span>
+            <img src="images/portafold-hero.jpg" alt="The brown leather PortaFold, closed, with cream stitching" width="1600" height="1067" loading="lazy">
+            <span class="material-body">
+              <span class="material-name">Leather</span>
+              <span class="material-price" data-material-price="Leather"></span>
+              <span class="material-colors" data-material-colors="Leather"></span>
+              <span class="material-go">Shop now <span aria-hidden="true">→</span></span>
+            </span>
           </a>
           <a class="material-card" href="shop.html">
             <img src="images/portafold-carbon-black.jpg" alt="The black carbon fiber PortaFold, closed" width="1600" height="1067" loading="lazy">
-            <span class="material-name">Carbon fiber</span>
-            <span class="material-meta" data-material="Carbon fiber"></span>
+            <span class="material-body">
+              <span class="material-name">Carbon fiber</span>
+              <span class="material-price" data-material-price="Carbon fiber"></span>
+              <span class="material-colors" data-material-colors="Carbon fiber"></span>
+              <span class="material-go">Shop now <span aria-hidden="true">→</span></span>
+            </span>
           </a>
         </div>
-        <p class="image-note">Concept renders.</p>
-        <p class="made-for"><strong>Made for:</strong> Study, Work, Travel, Home.</p>
+        <p class="image-note">Concept renders. The final PortaFold may look different.</p>
+        <!-- What else a buyer should know. Prices are filled in by js/home.js from products.js. -->
+        <ul class="buy-notes">
+          <li>The charging cable is sold separately as the <a href="shop.html">Wired Cord</a> (<span data-price-of="PF-CORD-001"></span>).</li>
+          <li>Want both? The <a href="shop.html#deals">One of Each Bundle</a> is <span data-price-of="PF-BND-ONE"></span>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 6. Closing call to action ===== -->
+    <section class="home-section">
+      <div class="container">
+        <div class="home-cta">
+          <p class="section-label">Made for study, work, travel and home</p>
+          <h2 class="home-heading">Ready to go?</h2>
+          <p class="home-cta-text">The open mat needs a 36" surface, like a library table, dorm desk or work desk.</p>
+          <div class="hero-buttons home-cta-buttons">
+            <a href="shop.html" class="button button-large">Shop the PortaFold</a>
+            <a href="specs.html" class="button button-outline button-large">Compare the specs</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
