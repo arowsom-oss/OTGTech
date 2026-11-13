@@ -373,8 +373,9 @@ a {
 }
 
 .product-image img {
-  max-width: 360px;
+  max-width: 100%;      /* the photo fills its box, like the main photo on a product page */
   width: 100%;
+  height: auto;
 }
 
 .product-price {
@@ -1802,75 +1803,5 @@ a {
 
   .home-cta {
     padding: 40px 20px;
-  }
-}
-
-/* ---------- Shop page: "Choose your PortaFold" cards ----------
-   Each card, top to bottom: name and colors, photo, price and button.
-   The photo box has a fixed shape (3 : 2), so a new photo of any size drops in
-   without changing the layout. The light-blue backdrop works like on the home page:
-   the photo's white background is multiplied by the blue behind it. */
-.pick-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.pick-card {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 20px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-
-.pick-name {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 800;
-}
-
-.pick-colors {
-  margin: 4px 0 0;
-  color: var(--text-dim);
-}
-
-.pick-photo {
-  aspect-ratio: 3 / 2;
-  isolation: isolate;
-  overflow: hidden;
-  border-radius: 8px;
-  background: radial-gradient(ellipse at 50% 45%, var(--photo-tint-center) 30%, var(--photo-tint-edge) 100%);
-}
-
-.pick-photo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  mix-blend-mode: multiply;
-}
-
-.pick-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: auto;                  /* pushes the price to the bottom of the card */
-}
-
-.pick-price {
-  margin: 0;
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-@media (max-width: 760px) {
-  .pick-grid {
-    grid-template-columns: 1fr;
   }
 }
