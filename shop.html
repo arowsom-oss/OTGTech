@@ -35,49 +35,15 @@
   </header>
 
   <main>
-    <!-- Pick a material. Each card: name and colors on top, photo in the middle, price at the bottom.
-         Prices and colors are filled in by js/shop-cards.js from products.js.
-         PHOTO SLOTS: to use a new photo, change the src of the <img> in that card. Keep width and height. -->
-    <section class="page-section pick-section" aria-labelledby="pick-label">
-      <div class="container">
-        <p class="section-label" id="pick-label">Choose your PortaFold</p>
-        <div class="pick-grid">
-
-          <article class="pick-card">
-            <div class="pick-top">
-              <p class="pick-name">Leather</p>
-              <p class="pick-colors">Colors: <span data-material-colors="Leather"></span></p>
-            </div>
-            <div class="pick-photo">
-              <img src="images/portafold-hero.jpg" alt="The brown leather PortaFold, closed" width="1600" height="1067" loading="lazy">
-            </div>
-            <div class="pick-bottom">
-              <p class="pick-price" data-material-price="Leather"></p>
-              <button type="button" class="button" data-pick="Leather">Choose Leather</button>
-            </div>
-          </article>
-
-          <article class="pick-card">
-            <div class="pick-top">
-              <p class="pick-name">Carbon fiber</p>
-              <p class="pick-colors">Colors: <span data-material-colors="Carbon fiber"></span></p>
-            </div>
-            <div class="pick-photo">
-              <img src="images/portafold-carbon-black.jpg" alt="The black carbon fiber PortaFold, closed" width="1600" height="1067" loading="lazy">
-            </div>
-            <div class="pick-bottom">
-              <p class="pick-price" data-material-price="Carbon fiber"></p>
-              <button type="button" class="button" data-pick="Carbon fiber">Choose Carbon fiber</button>
-            </div>
-          </article>
-
-        </div>
-        <p class="image-note">Concept renders. The final PortaFold may look different.</p>
-      </div>
-    </section>
-
     <section class="page-section" id="picker">
-      <div class="container product-layout">
+      <div class="container">
+
+        <!-- What the product is, across the top (like a product page on Amazon) -->
+        <p class="section-label">Shop</p>
+        <h1 id="product-name">PortaFold</h1>
+
+        <!-- Below it: the photo on the left, the buying options on the right -->
+        <div class="product-layout">
 
         <!-- Product photo: a 3D concept render of the leather PortaFold (see How It Folds for the disclosure). -->
         <div class="product-image">
@@ -88,8 +54,6 @@
         <!-- The options are a form so they work with a keyboard and screen readers.
              shop.js (built after products.js exists) reads the choices and finds the matching SKU. -->
         <form class="product-options" id="product-form">
-          <p class="section-label">Shop</p>
-          <h1 id="product-name">PortaFold</h1>
           <p class="product-price" id="product-price"></p>
           <a href="#deals" class="deals-tab">Look for deals</a>
           <p class="product-blurb">A case that unfolds into a 36" x 18" desk mat, with wireless charging pads, a 65 W power hub and a 74 Wh battery built in.</p>
@@ -142,6 +106,7 @@
           <p class="status-message" id="add-status" role="status"></p>
         </form>
 
+        </div>
       </div>
     </section>
 
@@ -242,7 +207,6 @@
   <script src="js/settings.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/shop.js"></script>
-  <script src="js/shop-cards.js"></script>
   <script src="js/nav.js"></script>
 </body>
 </html>

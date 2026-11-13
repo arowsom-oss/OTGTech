@@ -399,12 +399,12 @@ An Opus review of the old home page found the hero was a big copy of the logo al
 - Contrast checked (WCAG AA): every text color passes on its background. The lowest is the electric-blue end of "PortaFold" at 4.1:1, which is fine for 72px text (needs 3:1). Dark button text is 5.5:1 or better on every part of the gradient.
 - No new claims. "watch", "No tangled cords" and "no wires cross a fold" are unchanged and still unconfirmed.
 
-### Shop page: "Choose your PortaFold" cards (Nov 13, 2026, Claude, at Alex's request, Alex to review)
-- `shop.html` has a card row at the top: **Leather** and **Carbon fiber**, each with name and colors on top, the photo in the middle, the price and a "Choose ..." button at the bottom (Amazon-style card). Colors and prices come from `products.js`.
-- `js/shop-cards.js` (new, about 20 lines): the buttons check the matching Material radio and fire its `change` event, so Alex's listeners in `shop.js` (Brown graying out, price, photo) run by themselves. `shop.js` was not changed.
-- **Photo slots:** each card's photo box is a fixed 3:2 shape with the light-blue backdrop, so a new photo drops in by changing the `src` in that card (the comment in `shop.html` says where). The cards use the existing closed renders until the new ones exist. The new photos are planned for Monday, Nov 16 (generated in code, images only).
-- Only the two materials have cards, because only they have photos. Bundles and the Wired Cord still sit below the picker; they get cards when they have photos.
-- No new claims: names, colors and prices only.
+### Shop page: Amazon-style layout (Nov 13, 2026, Claude, at Alex's request, Alex to review)
+- The "Choose your PortaFold" card row (added earlier the same day) was **removed**, along with `js/shop-cards.js`. Alex did not want the two big top images.
+- `shop.html` now follows an Amazon product page: the product name ("Shop" label and the `h1` "PortaFold") across the top, then the photo on the left and the buying options on the right (price, deals link, description, Material, Color, Quantity, Add to Cart). The `h1` moved out of the form; its id, the form and all of `shop.js` are unchanged. On a phone it stacks: title, photo, options.
+- `css/style.css`: the card styles were removed, and the product photo now fills its box (it was capped at 360px).
+- The photo still switches with the picked material and color (Alex's `updatePhoto` in `shop.js`).
+- The new product photos planned for Monday, Nov 16 (generated in code, images only) go in through the `PRODUCT_PHOTOS` table in `shop.js` (change the `file` of an entry).
 
 ### Green and amber replaced with logo colors (Nov 13, 2026, Claude, at Alex's request)
 Alex does not like the orange and green. The brand table in section 6 lists "charging green" `#3ddc84` and "power / battery amber" `#ffb547`; **those two are no longer used for accents.** `css/style.css` now has `--charge` (the logo glow, `#96d0f9`) and `--power` (the logo electric blue, `#1090ee`) in `:root`; change them there to change them everywhere. Where they were used: the 65 W and 74 Wh numbers and the feature card edges on Home (the battery card edge is chrome), the Deals pill and savings badges, the cart deals line, the order confirmation heading, the notice box, the "(estimate)" label, and the power budget bar on Specs (now chrome, glow, electric and light blue, so the four segments still read apart). Class names changed to match (`fact-charge`, `fact-power`, `feature-charge`, `feature-power`).
