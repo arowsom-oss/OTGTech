@@ -175,7 +175,7 @@ a {
 .button {
   display: inline-block;
   background: var(--blue);
-  color: #fff;
+  color: var(--bg);   /* dark text: white on this blue is only 3.3:1, dark is 5.6:1 (WCAG AA needs 4.5:1) */
   text-decoration: none;
   padding: 12px 24px;
   border-radius: 8px;
@@ -186,7 +186,13 @@ a {
 }
 
 .button:hover {
-  background: #1a76e6;
+  background: var(--blue-light);
+}
+
+/* Keyboard users can see which button has focus, on every page */
+.button:focus-visible {
+  outline: 3px solid var(--blue-light);
+  outline-offset: 3px;
 }
 
 .button-outline {
@@ -239,11 +245,6 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-}
-
-.hero-logo {
-  max-width: 420px;
-  margin: 0 auto;
 }
 
 /* ---------- Generic page section ---------- */
@@ -377,7 +378,7 @@ a {
   padding: 20px;
 }
 
-.feature h2 {
+.feature h3 {
   font-size: 1.05rem;
   margin: 0 0 8px;
 }
@@ -552,7 +553,7 @@ a {
   padding: 0 6px;
   border-radius: 999px;
   background: var(--blue);
-  color: #fff;
+  color: var(--bg);
   font-size: 0.8rem;
   line-height: 1.5;
   text-align: center;
@@ -1141,11 +1142,6 @@ a {
     gap: 24px;
   }
 
-  .hero-logo {
-    max-width: 260px;
-    order: -1;                /* logo above the text on phones */
-  }
-
   .hero h1 {
     font-size: 2.6rem;
   }
@@ -1270,4 +1266,124 @@ a {
   height: auto;
   border-radius: var(--radius);
   border: 1px solid var(--border);
+}
+
+/* ---------- Home hero (replaces the big logo with the product) ---------- */
+.hero-inner {
+  grid-template-columns: 1fr 1.2fr;  /* give the photo a bit more room than the text */
+}
+
+.hero-secondary {
+  max-width: 34ch;                   /* keep the line short enough to read */
+}
+
+.hero-price {
+  margin: 16px 0 0;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.hero-photo {
+  margin: 0;
+}
+
+.hero-photo img {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.hero-photo figcaption {
+  margin-top: 8px;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+/* ---------- Fact strip ---------- */
+.fact-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;                          /* the 1px gap shows the border color as dividers */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.fact-strip li {
+  padding: 16px;
+  background: var(--card);
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.fact-strip strong {
+  display: block;
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Choose your material ---------- */
+.material-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.material-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.material-card:hover {
+  border-color: var(--blue);
+}
+
+.material-card img {
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.material-name {
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.material-meta {
+  color: var(--text-dim);
+}
+
+@media (max-width: 760px) {
+  /* One column on phones: text first, then the photo.
+     (Needed because the 1fr 1.2fr rule above comes after style.css's phone rule.) */
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .fact-strip {
+    grid-template-columns: 1fr 1fr;  /* 2 x 2 on phones */
+  }
+
+  .material-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Full-width buttons are easier to tap */
+  .hero-buttons .button {
+    flex: 1 1 100%;
+    text-align: center;
+  }
 }

@@ -35,51 +35,83 @@
   </header>
 
   <main>
+    <!-- Hero: the words on the left, the PRODUCT on the right.
+         The badge logo is already in the header, so the hero shows the open PortaFold instead. -->
     <section class="hero">
       <div class="container hero-inner">
         <div>
+          <p class="section-label">Meet the PortaFold</p>
           <h1>OTG<span class="tech">Tech</span></h1>
           <p class="hero-subhead">Organize. Charge. Go.</p>
-          <p class="hero-secondary">One case. Every device. Always ready.</p>
+          <p class="hero-secondary">The PortaFold is a case that unfolds into a 36" x 18" desk mat, with wireless charging and a power hub built in.</p>
           <div class="hero-buttons">
             <a href="shop.html" class="button">Shop the PortaFold</a>
             <a href="how-it-folds.html" class="button button-outline">See how it folds</a>
           </div>
+          <!-- Filled in by js/home.js from products.js, so the price is never typed twice -->
+          <p class="hero-price" id="hero-price"></p>
         </div>
-        <img src="images/otgtech-logo.webp" alt="OTGTech logo: On The Go Tech" class="hero-logo" width="560" height="512">
-      </div>
-    </section>
 
-    <section class="page-section">
-      <div class="container">
-        <figure class="home-photo">
-          <img src="images/portafold-hero.jpg" alt="The leather PortaFold folded closed, with a stitched band and the round OTG badge" width="1600" height="1067">
-          <figcaption>Concept render of the leather PortaFold.</figcaption>
+        <figure class="hero-photo">
+          <img src="media/portafold-fold-poster.jpg"
+               alt="The leather PortaFold open as a desk mat: a phone on its stand, a watch pad, an earbuds pad and ports on the left panel, and two plain felt panels"
+               width="1600" height="1067" fetchpriority="high">
+          <figcaption>Concept render. The final PortaFold may look different.</figcaption>
         </figure>
       </div>
     </section>
 
+    <!-- Four quick facts, all from the Specs page -->
+    <section class="container">
+      <ul class="fact-strip">
+        <li><strong>65 W</strong> shared charging</li>
+        <li><strong>74 Wh</strong> battery included</li>
+        <li><strong>36" x 18"</strong> open mat</li>
+        <li><strong>2 folds</strong> to close</li>
+      </ul>
+    </section>
+
     <section class="page-section">
       <div class="container">
-        <p class="section-label">Why the PortaFold</p>
+        <h2 class="section-label">Why the PortaFold</h2>
         <div class="feature-grid">
           <div class="feature">
-            <h2>Multi-Device Charging</h2>
+            <h3>Multi-Device Charging</h3>
             <p>Phone, watch, earbuds and a USB-C device at once, sharing one 65 W power budget.</p>
           </div>
           <div class="feature">
-            <h2>Smart Organization</h2>
+            <h3>Smart Organization</h3>
             <p>The phone stand, watch pad, earbuds pad and every port live together on one panel. No tangled cords.</p>
           </div>
           <div class="feature">
-            <h2>Two Simple Folds</h2>
+            <h3>Two Simple Folds</h3>
             <p>Three 12" x 18" panels fold into one flat stack, about 12" x 18" x 1". All the electronics sit on one panel, so no wires cross a fold.</p>
           </div>
           <div class="feature">
-            <h2>Travel-Ready Battery</h2>
+            <h3>Travel-Ready Battery</h3>
             <p>A 74 Wh battery module is included, under the FAA 100 Wh carry-on limit.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Choose a material. Prices and colors come from products.js through js/home.js. -->
+    <section class="page-section">
+      <div class="container">
+        <h2 class="section-label">Choose your material</h2>
+        <div class="material-grid">
+          <a class="material-card" href="shop.html">
+            <img src="images/portafold-leather-black.jpg" alt="The black leather PortaFold, closed" width="1600" height="1067" loading="lazy">
+            <span class="material-name">Leather</span>
+            <span class="material-meta" data-material="Leather"></span>
+          </a>
+          <a class="material-card" href="shop.html">
+            <img src="images/portafold-carbon-black.jpg" alt="The black carbon fiber PortaFold, closed" width="1600" height="1067" loading="lazy">
+            <span class="material-name">Carbon fiber</span>
+            <span class="material-meta" data-material="Carbon fiber"></span>
+          </a>
+        </div>
+        <p class="image-note">Concept renders.</p>
         <p class="made-for"><strong>Made for:</strong> Study, Work, Travel, Home.</p>
       </div>
     </section>
@@ -120,5 +152,6 @@
   <script src="js/products.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/nav.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

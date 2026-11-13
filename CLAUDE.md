@@ -374,3 +374,11 @@ Read every page and `js/` file against the final three-panel design. Everything 
 
 ### Carbon fiber video fix (Nov 12, 2026, Claude, at Alex's request)
 The carbon fiber concept video had carbon weave over the charging panel's inside face, which broke the rule above ("keep it on the outer shell only, never over the pads"). `media/portafold-fold-carbon.mp4` now shows black leather on the inside face of the electronics panel (pads, stand, ports, battery door). Carbon stays on the outside of the closed stack, the edges, the band, and the middle and right panels. The closed carbon photos did not change (only the outside shows). This is a render choice, not a confirmed product spec: the team still has to confirm where carbon fiber goes before any page says so. The How It Folds carbon caption makes no claim about it.
+
+### Home page rework (Nov 13, 2026, Claude built it at Alex's request, Alex to review)
+An Opus review of the old home page found the hero was a big copy of the logo already in the header, with the product below the fold. Changes:
+- `index.html`: hero now shows the open-mat render (`media/portafold-fold-poster.jpg`) next to the text and a "From $499.00" line. New 4-fact strip (65 W, 74 Wh, 36" x 18", 2 folds, all from the Specs page). New "Choose your material" cards (leather and carbon, closed black renders). Section label is now an `h2` and the feature titles are `h3`. Wording of the feature blurbs is unchanged.
+- `js/home.js` (new, about 15 lines): fills in the prices and colors from `products.js` through `casePrice`, `colorsFor` and `formatPrice` in `cart.js`, so prices still live in one place. Alex should read it and be able to explain it.
+- `css/style.css`: `.button` now uses dark text (`var(--bg)`) on the brand blue: white on `#2b8cff` is 3.3:1 and WCAG AA needs 4.5:1. Hover is the light blue. Buttons get a keyboard focus outline. The cart count badge in the nav uses dark text for the same reason. This changes buttons on EVERY page, so click through Shop, Cart and Checkout. Unused `.hero-logo` rules removed.
+- No new claims. "watch", "No tangled cords" and "no wires cross a fold" are still on the page and still unconfirmed (see the Nov 11 list).
+- **Team decisions:** show prices on Home while they are still a draft? Keep a small logo badge above the headline (the brief says the hero has the logo)?
