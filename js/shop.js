@@ -129,6 +129,7 @@ function updatePrice() {
 
 caseForm.querySelectorAll('input[name="material"], input[name="color"]').forEach(function (input) {
   input.addEventListener("change", updatePrice);
+  input.addEventListener("change", updatePhoto);
 });
 updatePrice();
 
@@ -176,6 +177,8 @@ function updatePhoto() {
   image.alt = photo.alt;
   caption.textContent = photo.caption;
 }
+updatePhoto();   // show the right photo when the page first loads
+
 caseForm.addEventListener("submit", function (event) {
   event.preventDefault();   // stay on the page instead of reloading it
 
