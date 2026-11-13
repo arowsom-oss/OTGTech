@@ -396,11 +396,22 @@ a {
   margin-bottom: 10px;
 }
 
-.swatches,
 .choice-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+/* Color options: three equal-width boxes, so Brown isn't wider than Black or Gray */
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 420px;
+}
+
+.swatches .swatch {
+  justify-content: center;
 }
 
 /* Each option is a <label> wrapping a radio, so clicking anywhere on it picks it */
