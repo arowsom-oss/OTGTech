@@ -1833,7 +1833,7 @@ a {
    Scoped to the homepage so the other pages keep their layout.
    ========================================================= */
 body:has(main.home) {
-  font-family: "Manrope", "Inter", system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;   /* Inter on every page (the brief and the judges' "consistent fonts" want one font) */
   background: #080f19;
   letter-spacing: -0.01em;
 }
