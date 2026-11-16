@@ -62,11 +62,20 @@
         </div>
 
         <figure class="hero-photo">
-          <!-- .photo-tint gives the render's white studio background a light-blue tint (see style.css) -->
-          <div class="photo-tint">
-            <img src="media/portafold-fold-poster.jpg"
+          <!-- .photo-tint gives the render's white studio background a light-blue tint (see style.css).
+               The two pictures sit on top of each other; js/home.js fades between them. -->
+          <div class="photo-tint hero-cycle" id="hero-cycle">
+            <img class="hero-slide is-active" src="images/portafold-open-leather.jpg"
                  alt="The leather PortaFold open as a desk mat: a phone on its stand, a watch pad, an earbuds pad and ports on the left panel, and two plain felt panels"
-                 width="1600" height="1067" fetchpriority="high">
+                 width="1280" height="720" fetchpriority="high">
+            <img class="hero-slide" src="images/portafold-open-carbon.jpg"
+                 alt="The carbon fiber PortaFold open as a desk mat, with the same layout: a phone on its stand, a watch pad, an earbuds pad and ports on the left panel, and two plain felt panels"
+                 width="1280" height="720">
+          </div>
+          <!-- Pick a material by hand. Clicking one stops the automatic cycle. -->
+          <div class="hero-toggle" role="group" aria-label="Choose which material to preview">
+            <button type="button" class="hero-toggle-button is-active" aria-pressed="true">Leather</button>
+            <button type="button" class="hero-toggle-button" aria-pressed="false">Carbon fiber</button>
           </div>
           <figcaption>Concept render. The final PortaFold may look different.</figcaption>
         </figure>
