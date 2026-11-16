@@ -26,3 +26,50 @@ document.querySelectorAll("[data-price-of]").forEach(function (span) {
     span.textContent = formatPrice(product.price);
   }
 });
+
+// ---------- Hero: fade between the leather and carbon fiber pictures ----------
+// The two <img class="hero-slide"> sit on top of each other. Only the one with the
+// class "is-active" is visible (see style.css), so switching is just moving that class.
+const HERO_SECONDS = 4.5;            // how long each picture stays. Change this to speed it up or slow it down.
+
+const heroSlides = document.querySelectorAll(".hero-slide");
+const heroButtons = document.querySelectorAll(".hero-toggle-button");
+let heroIndex = 0;
+let heroTimer = null;
+
+// Show slide number `index` and mark the matching button
+function showHeroSlide(index) {
+  heroIndex = index;
+  heroSlides.forEach(function (slide, i) {
+    slide.classList.toggle("is-active", i === index);
+  });
+  heroButtons.forEach(function (button, i) {
+    button.classList.toggle("is-active", i === index);
+    button.setAttribute("aria-pressed", i === index ? "true" : "false");
+  });
+}
+
+function startHeroTimer() {
+  heroTimer = setInterval(function () {
+    showHeroSlide((heroIndex + 1) % heroSlides.length);   // % wraps back to the first picture
+  }, HERO_SECONDS * 1000);
+}
+
+function stopHeroTimer() {
+  clearInterval(heroTimer);
+  heroTimer = null;
+}
+
+// Clicking a button picks that material and stops the automatic cycle
+heroButtons.forEach(function (button, i) {
+  button.addEventListener("click", function () {
+    stopHeroTimer();
+    showHeroSlide(i);
+  });
+});
+
+// Start cycling, unless the visitor's device is set to reduce motion
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (heroSlides.length > 1 && !reducedMotion) {
+  startHeroTimer();
+}

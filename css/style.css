@@ -2280,3 +2280,65 @@ body:has(main.home) .disclaimer {
 .team-list li {
   margin: 0 0 6px;
 }
+
+/* ---------- Home hero: fade between the leather and carbon fiber pictures ----------
+   The pictures are stacked in the same box. Only .is-active is visible; the others are
+   see-through (opacity 0). The transition makes the change a slow fade, not a jump. */
+.hero-cycle {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+.home .hero-cycle .hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 1000ms ease;
+}
+
+.home .hero-cycle .hero-slide.is-active {
+  opacity: 1;
+}
+
+.hero-toggle {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.hero-toggle-button {
+  padding: 7px 15px;
+  border: 1px solid rgba(159, 176, 194, 0.28);
+  border-radius: 999px;
+  background: none;
+  color: var(--text-dim);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.hero-toggle-button:hover {
+  color: var(--text);
+}
+
+.hero-toggle-button.is-active {
+  border-color: var(--text);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+.hero-toggle-button:focus-visible {
+  outline: 3px solid var(--blue-light);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home .hero-cycle .hero-slide {
+    transition: none;
+  }
+}
