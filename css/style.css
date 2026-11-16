@@ -1805,3 +1805,25 @@ a {
     padding: 40px 20px;
   }
 }
+
+/* ---------- About page: AI-use disclosure list ---------- */
+#ai-use {
+  scroll-margin-top: 90px;           /* so the footer link doesn't land under the sticky header */
+}
+
+.ai-list {
+  list-style: none;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;                  /* the About sections are centered; a list reads better left-aligned */
+  color: var(--text-dim);
+}
+
+.ai-list li {
+  margin: 0 0 10px;
+}
+
+.ai-list strong {
+  color: var(--text);
+}
