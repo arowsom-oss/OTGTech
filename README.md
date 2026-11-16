@@ -32,7 +32,3 @@ The card field is a practice field, but the code treats it as if it were real:
 ## AI use
 
 AI tools (Claude, from Anthropic) were used to help build this site: much of the code, the 3D concept renders and the fold animations. The team decides what to build and takes responsibility for it. The product list and prices (`js/products.js`) and the shop page's color and photo picker (`js/shop.js`) were written by a student. The details are on the site's About page. The renders are concept art, not photos of a real product.
-
-## Notes
-
-`CLAUDE.md` is the team's working notes and progress log for this project.
