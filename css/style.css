@@ -1826,7 +1826,7 @@ a {
 
 .ai-list strong {
   color: var(--text);
-
+}
 
 /* =========================================================
    Premium home refresh — quieter, cleaner, product-first.
@@ -2243,4 +2243,40 @@ body:has(main.home) .disclaimer {
   .home .material-card img {
     transition: none;
   }
+}
+
+/* ---------- About page: team ---------- */
+.team-ceo {
+  margin: 0 0 24px;
+  font-size: 1.1rem;
+  color: var(--text-dim);
+}
+
+.team-ceo strong,
+.team-lead strong {
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.about-card .team-lead {
+  margin: 0 0 14px;                  /* .about-card p sets margin 0, so this needs the same weight */
+  color: var(--text-dim);
+}
+
+.team-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+.team-list li {
+  margin: 0 0 6px;
 }
