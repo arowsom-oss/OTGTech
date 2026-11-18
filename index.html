@@ -62,20 +62,32 @@
         </div>
 
         <figure class="hero-photo">
-          <!-- .photo-tint gives the render's white studio background a light-blue tint (see style.css).
-               The two pictures sit on top of each other; js/home.js fades between them. -->
-          <div class="photo-tint hero-cycle" id="hero-cycle">
+          <!-- A small slider: two pictures (leather, carbon fiber) that fade into each other.
+               .photo-tint gives each render's white studio background a tint (see style.css).
+               js/home.js changes data-slide and moves the "is-active" class. -->
+          <div class="photo-tint hero-cycle" id="hero-cycle" data-slide="0">
             <img class="hero-slide is-active" src="images/portafold-open-leather.jpg"
                  alt="The leather PortaFold open as a desk mat: a phone on its stand, a watch pad, an earbuds pad and ports on the left panel, and two plain felt panels"
                  width="1280" height="720" fetchpriority="high">
             <img class="hero-slide" src="images/portafold-open-carbon.jpg"
                  alt="The carbon fiber PortaFold open as a desk mat, with the same layout: a phone on its stand, a watch pad, an earbuds pad and ports on the left panel, and two plain felt panels"
                  width="1280" height="720">
+            <button type="button" class="hero-next" aria-label="Show the other material">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="hero-progress" aria-hidden="true"><span></span></div>
           </div>
-          <!-- Pick a material by hand. Clicking one stops the automatic cycle. -->
-          <div class="hero-toggle" role="group" aria-label="Choose which material to preview">
-            <button type="button" class="hero-toggle-button is-active" aria-pressed="true">Leather</button>
-            <button type="button" class="hero-toggle-button" aria-pressed="false">Carbon fiber</button>
+          <!-- Under the picture: pick a material by hand, and see its price and colors.
+               The price and colors are filled in by js/home.js from products.js. -->
+          <div class="hero-info">
+            <div class="hero-toggle" role="group" aria-label="Choose which material to preview">
+              <button type="button" class="hero-toggle-button is-active" data-material="Leather" aria-pressed="true">Leather</button>
+              <button type="button" class="hero-toggle-button" data-material="Carbon fiber" aria-pressed="false">Carbon fiber</button>
+            </div>
+            <p class="hero-slide-info" aria-live="polite">
+              <span class="hero-slide-price" id="hero-slide-price"></span>
+              <span class="hero-slide-colors" id="hero-slide-colors"></span>
+            </p>
           </div>
           <figcaption>Concept render. The final PortaFold may look different.</figcaption>
         </figure>

@@ -2281,32 +2281,136 @@ body:has(main.home) .disclaimer {
   margin: 0 0 6px;
 }
 
-/* ---------- Home hero: fade between the leather and carbon fiber pictures ----------
+/* ---------- Home hero slider: leather and carbon fiber ----------
    The pictures are stacked in the same box. Only .is-active is visible; the others are
-   see-through (opacity 0). The transition makes the change a slow fade, not a jump. */
+   see-through (opacity 0). The transition makes the change a slow fade, not a jump.
+   The box's backdrop also fades between a warm tint (leather) and the cool light blue
+   (carbon fiber): see ::before. */
 .hero-cycle {
   position: relative;
   aspect-ratio: 16 / 9;
+  touch-action: pan-y;                /* lets the page scroll up and down, while we catch left and right swipes */
+}
+
+/* Warm backdrop for the leather picture. It sits behind the pictures and fades in and out. */
+.hero-cycle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 45%, #f6ece0 30%, #e6d2b9 100%);
+  opacity: 1;
+  transition: opacity 1000ms ease;
+}
+
+.hero-cycle[data-slide="1"]::before {
+  opacity: 0;
 }
 
 .home .hero-cycle .hero-slide {
   position: absolute;
   inset: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: contain;
   opacity: 0;
-  transition: opacity 1000ms ease;
+  transform: scale(1.025);            /* a tiny zoom-out as each picture fades in */
+  transition: opacity 1000ms ease, transform 1400ms ease;
 }
 
 .home .hero-cycle .hero-slide.is-active {
   opacity: 1;
+  transform: scale(1);
+}
+
+/* The round arrow in the bottom-right corner of the picture */
+.hero-next {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1.5px solid rgba(13, 20, 28, 0.55);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  color: #0d141c;
+  cursor: pointer;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.hero-next:hover {
+  background: rgba(255, 255, 255, 0.75);
+  transform: translateX(2px);
+}
+
+.hero-next:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* Thin line along the bottom of the picture that fills while the picture is showing */
+.hero-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 3px;
+  background: rgba(13, 20, 28, 0.12);
+}
+
+.hero-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--logo-electric);
+}
+
+.hero-cycle.is-playing .hero-progress span {
+  animation: hero-fill 4500ms linear forwards;      /* keep this the same as HERO_SECONDS in js/home.js */
+}
+
+@keyframes hero-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Under the picture: the material buttons on the left, the price and colors on the right */
+.hero-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
 }
 
 .hero-toggle {
   display: flex;
   gap: 8px;
-  margin-top: 14px;
+}
+
+.hero-slide-info {
+  margin: 0;
+  text-align: right;
+}
+
+.hero-slide-price {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.hero-slide-colors {
+  display: block;
+  margin-top: 2px;
+  color: var(--text-dim);
+  font-size: 0.82rem;
 }
 
 .hero-toggle-button {
@@ -2337,8 +2441,20 @@ body:has(main.home) .disclaimer {
   outline-offset: 3px;
 }
 
+@media (max-width: 760px) {
+  .hero-info {
+    flex-wrap: wrap;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .hero-cycle::before,
   .home .hero-cycle .hero-slide {
     transition: none;
+    transform: none;
+  }
+
+  .hero-cycle.is-playing .hero-progress span {
+    animation: none;
   }
 }
