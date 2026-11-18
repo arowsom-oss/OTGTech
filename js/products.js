@@ -46,7 +46,7 @@ const PRODUCTS = [
     type: "Bundle",
     material: null,
     color: null,
-    price: 999
+    price: 949
   },
   {
     sku: "PF-BND-OFF",
@@ -54,7 +54,7 @@ const PRODUCTS = [
     type: "Bundle",
     material: null,
     color: null,
-    price: 4999
+    price: 4399
   },
   {
     sku: "PF-CORD-001",
