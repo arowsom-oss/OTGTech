@@ -6,7 +6,7 @@ const PRODUCTS = [
     type: "PortaFold",
     material: "Leather",
     color: "Black",
-    price: 499
+    price: 399
   },
   {
     sku: "PF-LTH-GRY",
@@ -14,7 +14,7 @@ const PRODUCTS = [
     type: "PortaFold",
     material: "Leather",
     color: "Gray",
-    price: 499
+    price: 399
   },
   {
     sku: "PF-LTH-BRN",
@@ -22,7 +22,7 @@ const PRODUCTS = [
     type: "PortaFold",
     material: "Leather",
     color: "Brown",
-    price: 499
+    price: 399
   },
   {
     sku: "PF-CF-BLK",
@@ -30,7 +30,7 @@ const PRODUCTS = [
     type: "PortaFold",
     material: "Carbon fiber",
     color: "Black",
-    price: 599
+    price: 499
   },
   {
     sku: "PF-CF-GRY",
@@ -38,7 +38,7 @@ const PRODUCTS = [
     type: "PortaFold",
     material: "Carbon fiber",
     color: "Gray",
-    price: 599
+    price: 499
   },
   {
     sku: "PF-BND-ONE",
@@ -46,7 +46,7 @@ const PRODUCTS = [
     type: "Bundle",
     material: null,
     color: null,
-    price: 949
+    price: 799
   },
   {
     sku: "PF-BND-OFF",
@@ -54,7 +54,7 @@ const PRODUCTS = [
     type: "Bundle",
     material: null,
     color: null,
-    price: 4399
+    price: 3599
   },
   {
     sku: "PF-CORD-001",
