@@ -9,7 +9,8 @@
                              Google Fonts the whole site uses), so a card can't be sent out
                              inside an image or script address either
        object-src, base-uri = shut off two other ways code gets sneaked in
-       Even a mistake in checkout.js couldn't send the card out. -->
+       An ordinary mistake in checkout.js couldn't send the card out. (A policy can't stop the page
+       from navigating to another address, so checkout.js must never do that. See tests/site.test.js.) -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'none'; object-src 'none'; base-uri 'none'">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
