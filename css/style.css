@@ -1113,6 +1113,16 @@ a {
     gap: 20px;
   }
 
+  /* Footer links were 19px tall: too small to tap. Make each one a 44px target. */
+  .footer-grid a {
+    display: inline-block;
+    padding: 12px 0;
+  }
+
+  .footer-grid li {
+    margin-bottom: 0;
+  }
+
   .product-layout {
     grid-template-columns: 1fr;
     gap: 24px;
