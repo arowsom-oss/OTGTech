@@ -8,8 +8,12 @@
 //   - It is never logged. Nothing in this file prints anything to the browser's developer tools.
 //   - It is wiped from the page the moment the order is placed.
 // checkout.html also has a Content-Security-Policy that tells the browser to block
-// network requests and form submits on this page. So even if someone made a mistake in
-// this file later, the browser still would not let the card leave the page.
+// background network requests (fetch, beacons), form submits, and outside images and
+// scripts on this page. So an ordinary mistake in this file would not send the card out.
+// What the policy can NOT stop is the page navigating away (location.href = "https://...").
+// A browser has no policy for that, so the real protection is the rule above: this file
+// never holds the card, and nobody should add code here that sends the user to another URL.
+// tests/site.test.js proves both halves of this in a real browser.
 //
 // Everything shown on the page is added with textContent, never as HTML. What a
 // customer types (their name, for example) can't turn into code.
@@ -224,11 +228,11 @@ function showConfirmation(order) {
 }
 
 function placeOrder(lines) {
-  const totals = cartTotals(lines);
   const customerName = document.getElementById("ship-name").value.trim();
 
-  clearCardFields();                 // the card is gone from the page right now
+  clearCardFields();                 // the card is gone from the page right now, before anything that could throw
   formEl.reset();                    // and the rest of the form
+  const totals = cartTotals(lines);
   saveCart([]);                      // the cart is empty because the order is placed
   updateCartBadge();
 

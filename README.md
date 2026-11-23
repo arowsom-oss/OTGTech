@@ -29,6 +29,10 @@ The card field is a practice field, but the code treats it as if it were real:
 - It is cleared from the page the moment the order is placed.
 - `checkout.html` has a Content-Security-Policy that makes the browser itself block network requests and form submits.
 
+## Tests
+
+The site has no build step, but it does have tests (Playwright, in a real browser). Run `npm install`, then `npx playwright install chromium` the first time, then `npm test`. They check every page, tampered carts, the card rules, the checkout security policy and accessibility, and they run on every pull request through GitHub Actions. See `tests/site.test.js` and `docs/submission-checklist.md`.
+
 ## AI use
 
 AI tools (Claude, from Anthropic) were used to help build this site: much of the code, the 3D concept renders and the fold animations. The team decides what to build and takes responsibility for it. The product list and prices (`js/products.js`) and the shop page's color and photo picker (`js/shop.js`) were written by a student. The details are on the site's About page. The renders are concept art, not photos of a real product.
