@@ -21,6 +21,9 @@ const { chromium } = require("playwright");
 
 const ROOT = path.resolve(__dirname, "..");
 const PAGES = ["index", "shop", "how-it-folds", "specs", "about", "contact", "cart", "checkout"];
+// Hidden pages: built but not linked from anywhere yet. They get every check the public pages get.
+const HIDDEN = ["articles", "article"];
+const ALL_PAGES = PAGES.concat(HIDDEN);
 const url = (name) => "file://" + path.join(ROOT, name + ".html");
 const CARD = "4242 4242 4242 4242";
 
@@ -46,7 +49,7 @@ async function newPage(width = 390) {
 }
 
 // ---------- 1. Every page ----------
-for (const name of PAGES) {
+for (const name of ALL_PAGES) {
   test(`${name}.html loads clean on a phone`, async () => {
     const { page, context, errors } = await newPage(390);
     await page.goto(url(name));
@@ -69,7 +72,7 @@ for (const name of PAGES) {
 // ---------- 2. Links, images, scripts ----------
 test("every local link, image, script and stylesheet exists", () => {
   const missing = [];
-  for (const name of PAGES.concat("404")) {
+  for (const name of ALL_PAGES.concat("404")) {
     const html = fs.readFileSync(path.join(ROOT, name + ".html"), "utf8");
     for (const m of html.matchAll(/(?:href|src|poster)="([^"]+)"/g)) {
       const ref = m[1];
@@ -82,7 +85,7 @@ test("every local link, image, script and stylesheet exists", () => {
 });
 
 test("every page has the VE disclaimer text in its source", () => {
-  for (const name of PAGES.concat("404")) {
+  for (const name of ALL_PAGES.concat("404")) {
     const html = fs.readFileSync(path.join(ROOT, name + ".html"), "utf8");
     assert.match(html, /educational purposes only/, name);
   }
@@ -255,7 +258,7 @@ test("checkout.js never navigates, opens windows, or makes requests", () => {
 // ---------- 7. Accessibility ----------
 const axeSource = fs.existsSync(path.join(ROOT, "node_modules/axe-core/axe.min.js"))
   ? fs.readFileSync(path.join(ROOT, "node_modules/axe-core/axe.min.js"), "utf8") : null;
-for (const name of PAGES) {
+for (const name of ALL_PAGES) {
   test(`${name}.html has no accessibility violations (axe, WCAG 2.2 AA)`, { skip: !axeSource && "run npm install first" }, async () => {
     const { page, context } = await newPage(390);
     await page.goto(url(name));
@@ -266,3 +269,88 @@ for (const name of PAGES) {
     await context.close();
   });
 }
+
+// ---------- 8. The hidden Articles pages ----------
+test("hidden pages: not linked, not in the sitemap, and told to stay out of search engines", () => {
+  const everything = PAGES.concat("404").map((n) => fs.readFileSync(path.join(ROOT, n + ".html"), "utf8")).join("\n")
+    + fs.readFileSync(path.join(ROOT, "sitemap.xml"), "utf8") + fs.readFileSync(path.join(ROOT, "robots.txt"), "utf8")
+    + fs.readFileSync(path.join(ROOT, "js", "nav.js"), "utf8");
+  assert.doesNotMatch(everything, /articles?\.html/i, "something public points at the hidden articles pages");
+  for (const name of HIDDEN) {
+    assert.match(fs.readFileSync(path.join(ROOT, name + ".html"), "utf8"), /<meta name="robots" content="noindex">/, name);
+  }
+});
+
+test("articles page: shows the empty message while there are no articles", async () => {
+  const { page, context, errors } = await newPage();
+  await page.goto(url("articles"));
+  assert.ok(await page.locator("#articles-empty").isVisible());
+  assert.strictEqual(await page.locator("#article-list > li").count(), 0);
+  assert.deepStrictEqual(errors, []);
+  await context.close();
+});
+
+test("article page: a missing article shows 'not found', not an error", async () => {
+  const { page, context, errors } = await newPage();
+  await page.goto(url("article") + "?id=does-not-exist");
+  assert.match(await page.innerText("#article-view"), /Article not found/);
+  await page.goto(url("article") + "?id=<script>window.__pwned=1</script>");
+  assert.strictEqual(await page.evaluate(() => window.__pwned), undefined);
+  assert.deepStrictEqual(errors, []);
+  await context.close();
+});
+
+const GOOD = { id: "good-one", title: "Good one", summary: "A summary.", author: "Some Team", date: "2026-12-01",
+  body: [{ type: "h", text: "Heading" }, { type: "p", text: "Paragraph." }, { type: "list", items: ["a", "b", ""] }],
+  sources: ["A source"], ai: "Claude helped edit." };
+
+test("articles: bad entries are skipped, good ones are sorted newest first", async () => {
+  const { page, context } = await newPage();
+  await page.goto(url("articles"));
+  const ids = await page.evaluate((good) => cleanArticles([
+    { ...good, id: "older", date: "2026-11-01" },
+    good,
+    { ...good, id: "Bad ID" },                                   // capital letters and a space
+    { ...good, id: "bad-date", date: "2026-02-31" },             // not a real date
+    { ...good, id: "no-title", title: "" },
+    { ...good, id: "good-one" },                                 // repeated id: first one wins
+    { ...good, id: "bad-image", image: { src: "https://evil.test/x.png", alt: "x" } },
+    { ...good, id: "no-alt", image: { src: "images/portafold-hero.jpg", alt: "" } },
+    { ...good, id: "traversal", image: { src: "images/../js/cart.js", alt: "x" } },
+    null, 7, "text"
+  ]).map((a) => a.id), GOOD);
+  assert.deepStrictEqual(ids, ["good-one", "older"]);
+  await context.close();
+});
+
+test("articles: HTML in an article is shown as text and creates nothing", async () => {
+  const { page, context } = await newPage();
+  await page.goto(url("article"));
+  await page.evaluate((good) => {
+    const evil = '<img src=x onerror="window.__pwned=1"><script>window.__pwned=1</script>';
+    const article = cleanArticle({ ...good, title: evil, author: evil, summary: evil,
+      body: [{ type: "p", text: evil }, { type: "h", text: evil }, { type: "list", items: [evil] }], sources: [evil], ai: evil });
+    renderArticle(article, document.getElementById("article-view"));
+    const list = document.createElement("ul"), empty = document.createElement("p");
+    document.body.append(list, empty);
+    renderArticleList([article], list, empty);
+  }, GOOD);
+  await page.waitForTimeout(200);
+  assert.strictEqual(await page.evaluate(() => window.__pwned), undefined, "script ran");
+  assert.strictEqual(await page.locator("main img[src='x'], body > ul img[src='x']").count(), 0, "an img was created");
+  assert.match(await page.innerText("#article-view"), /<img src=x/);
+  await context.close();
+});
+
+test("articles: a full article draws its heading, body, sources and AI note", async () => {
+  const { page, context, errors } = await newPage();
+  await page.goto(url("article"));
+  await page.evaluate((good) => renderArticle(cleanArticle(good), document.getElementById("article-view")), GOOD);
+  const text = await page.innerText("#article-view");
+  for (const piece of ["Good one", "Some Team", "Dec 1, 2026", "Heading", "Paragraph.", "Sources", "A source", "AI use: Claude helped edit."]) {
+    assert.ok(text.includes(piece), "missing: " + piece);
+  }
+  assert.strictEqual(await page.locator("#article-view .article-body li").count(), 2, "the empty list item should be dropped");
+  assert.deepStrictEqual(errors, []);
+  await context.close();
+});
