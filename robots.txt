@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /cart.html
-Disallow: /checkout.html
 
 Sitemap: https://getportafold.com/sitemap.xml

@@ -11,6 +11,7 @@
   --card: #141e29;        /* card / panel */
   --raised: #1b2836;      /* raised panel */
   --border: #2a3a4c;
+  --field-border: #6b7f95;  /* edges of form fields: 3.6 to 4.5:1 on every background they sit on */
   --text: #eef3f8;        /* main text */
   --text-dim: #9fb0c2;    /* secondary text */
   --blue: #2b8cff;        /* brand blue, the "Tech" in the logo */
@@ -410,9 +411,20 @@ a {
 /* Color options: three equal-width boxes, so Brown isn't wider than Black or Gray */
 .swatches {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   max-width: 420px;
+}
+
+@media (max-width: 360px) {
+  .swatches {
+    gap: 6px;
+  }
+
+  .swatches .swatch {
+    padding: 10px 8px;
+    gap: 6px;
+  }
 }
 
 .swatches .swatch {
@@ -557,6 +569,7 @@ a {
 }
 
 .extra-card {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -600,7 +613,7 @@ a {
   font-weight: 400;
   background: var(--raised);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: 1px solid var(--field-border);
   border-radius: 8px;
 }
 
@@ -649,7 +662,7 @@ a {
   font: inherit;
   background: var(--raised);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: 1px solid var(--field-border);
   border-radius: 8px;
 }
 
@@ -773,6 +786,7 @@ a {
 }
 
 .checkout-form fieldset {
+  min-inline-size: 0;     /* let the fieldset shrink to the screen instead of to its contents */
   margin: 0 0 24px;
   padding: 20px;
   background: var(--card);
@@ -807,11 +821,13 @@ a {
 }
 
 .field input {
+  width: 100%;
+  min-width: 0;
   padding: 10px;
   font: inherit;
   background: var(--raised);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: 1px solid var(--field-border);
   border-radius: 8px;
 }
 
@@ -1136,7 +1152,7 @@ a {
 /* ---------- Phone layout for the shop extras and the cart ---------- */
 @media (max-width: 760px) {
   .extras-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);   /* plain 1fr can't shrink below the widest input inside a card */
   }
 
   .cart-row {
@@ -1398,7 +1414,7 @@ a {
   font-size: 0.95rem;
 }
 
-/* "From $499.00": big and bold, but smaller than the tagline */
+/* "From $399.00": big and bold, but smaller than the tagline */
 .hero-price {
   display: flex;
   flex-wrap: wrap;
@@ -2467,4 +2483,28 @@ body:has(main.home) .disclaimer {
   .hero-cycle.is-playing .hero-progress span {
     animation: none;
   }
+}
+
+
+/* ---------- Skip link: the first thing a keyboard user can reach, jumps past the nav ---------- */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 8px;
+  z-index: 1000;
+  padding: 10px 14px;
+  background: var(--blue);
+  color: var(--bg);
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+/* The skip link moves focus to <main>. That is a target, not a control, so it needs no outline. */
+main:focus {
+  outline: none;
 }

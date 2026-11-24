@@ -13,3 +13,12 @@ menuButton.addEventListener("click", function () {
   // aria-expanded tells screen readers whether the menu is open
   menuButton.setAttribute("aria-expanded", isOpen);
 });
+
+// Escape closes the menu and puts the keyboard focus back on the Menu button
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" && navLinks.classList.contains("open")) {
+    navLinks.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.focus();
+  }
+});

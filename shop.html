@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="container header-inner">
@@ -43,13 +44,14 @@
     </div>
   </header>
 
-  <main>
+  <main id="main" tabindex="-1">
     <section class="page-section" id="picker">
       <div class="container">
 
         <!-- What the product is, across the top (like a product page on Amazon) -->
         <p class="section-label">Shop</p>
         <h1 id="product-name">PortaFold</h1>
+        <noscript><p class="notice">Prices and the cart need JavaScript turned on to work.</p></noscript>
 
         <!-- Below it: the photo on the left, the buying options on the right -->
         <div class="product-layout">
@@ -149,7 +151,7 @@
             <p class="extra-price" data-price-of="PF-BND-OFF"></p>
             <p class="extra-desc">Five leather and five carbon fiber PortaFolds for your team. <span data-savings-of="PF-BND-OFF"></span></p>
             <label class="form-field">Color split (optional)
-              <input type="text" name="colors" maxlength="120" placeholder="Example: 3 Black, 2 Gray leather; 5 Black carbon fiber">
+              <input type="text" name="colors" maxlength="112" placeholder="Example: 3 Black, 2 Gray leather; 5 Black carbon fiber">
             </label>
             <label class="form-field">Quantity
               <input type="number" name="quantity" value="1" min="1" max="10">
