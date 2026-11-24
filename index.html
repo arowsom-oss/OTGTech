@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="container header-inner">
@@ -43,7 +44,7 @@
     </div>
   </header>
 
-  <main class="home">
+  <main id="main" tabindex="-1" class="home">
 
     <!-- ===== 1. Hero: what it is, the product, one main button ===== -->
     <section class="hero">
@@ -59,6 +60,7 @@
           <p class="hero-lead">A case that unfolds into a 36" x 18" desk mat, with wireless charging and a power hub built in.</p>
           <!-- The price sits right above the Shop button. The amount is filled in by js/home.js
                from products.js, so a price is never typed into the HTML. -->
+          <noscript><p class="notice">Prices and the cart need JavaScript turned on to work.</p></noscript>
           <p class="hero-price">
             <span class="hero-price-from">From</span>
             <span class="hero-price-amount" id="hero-price"></span>
@@ -93,7 +95,7 @@
               <button type="button" class="hero-toggle-button is-active" data-material="Leather" aria-pressed="true">Leather</button>
               <button type="button" class="hero-toggle-button" data-material="Carbon fiber" aria-pressed="false">Carbon fiber</button>
             </div>
-            <p class="hero-slide-info" aria-live="polite">
+            <p class="hero-slide-info">
               <span class="hero-slide-price" id="hero-slide-price"></span>
               <span class="hero-slide-colors" id="hero-slide-colors"></span>
             </p>

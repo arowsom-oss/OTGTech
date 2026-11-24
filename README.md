@@ -12,7 +12,7 @@ Plain HTML, CSS and JavaScript. No frameworks and no build step. It is a static 
 
 | Folder or file | What it is |
 |---|---|
-| `*.html` | The eight pages: Home, Shop, How It Folds, Specs, About, Contact, Cart, Checkout |
+| `*.html` | The eight pages: Home, Shop, How It Folds, Specs, About, Contact, Cart, Checkout (plus `404.html`, the "page not found" page) |
 | `css/style.css` | All the styles. The colors are CSS variables at the top. |
 | `js/products.js` | Every product, SKU and price. Every page reads prices from here. |
 | `js/cart.js`, `js/cart-page.js` | The cart: add, change quantity, remove, subtotal |

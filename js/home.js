@@ -3,13 +3,13 @@
 // Everything comes from PRODUCTS (products.js) using helpers in cart.js,
 // so when a price changes in products.js the home page changes too.
 
-// Hero price: the cheapest PortaFold of any material, like "$499.00".
+// Hero price: the cheapest PortaFold of any material, like "$399.00".
 // The word "From" is already in the HTML, next to this span.
 const heroPrice = document.getElementById("hero-price");
 const lowest = Math.min(casePrice("Leather"), casePrice("Carbon fiber"));
 heroPrice.textContent = formatPrice(lowest);
 
-// Material cards: <span data-material-price="Leather"> gets "$499.00"
+// Material cards: <span data-material-price="Leather"> gets its price, like "$399.00"
 document.querySelectorAll("[data-material-price]").forEach(function (span) {
   span.textContent = formatPrice(casePrice(span.dataset.materialPrice));
 });
@@ -131,5 +131,15 @@ if (heroSlides.length > 1 && !reducedMotion) {
   });
   heroCycle.addEventListener("mouseleave", function () {
     if (!heroStopped) { startHeroTimer(); }
+  });
+
+  // Keyboard users: stop the slides while focus is on anything in the picture area
+  // (the arrow, the Leather and Carbon fiber buttons), and start again when focus leaves it.
+  const heroArea = heroCycle.closest(".hero-photo") || heroCycle;
+  heroArea.addEventListener("focusin", function () {
+    if (!heroStopped) { stopHeroTimer(); }
+  });
+  heroArea.addEventListener("focusout", function (event) {
+    if (!heroStopped && !heroArea.contains(event.relatedTarget)) { startHeroTimer(); }
   });
 }

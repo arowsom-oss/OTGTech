@@ -66,16 +66,26 @@ function buildRow(line) {
   qtyInput.max = MAX_QTY;
   qtyInput.value = line.qty;
   qtyInput.setAttribute("aria-label", "Quantity for " + label);
+  // The line total, kept in a variable so a quantity change can update just this row
+  const lineTotalEl = makeEl("span", "cart-line-total", formatPrice(product.price * line.qty));
+
   qtyInput.addEventListener("change", function () {
     const qty = Number(qtyInput.value);
     if (!Number.isInteger(qty) || qty < 1 || qty > MAX_QTY) {
       announce("Quantity must be a whole number from 1 to " + MAX_QTY + ".");
-      render();   // put the old number back
+      qtyInput.value = line.qty;   // put the old number back, and leave the keyboard focus where it is
       return;
     }
-    setQuantity(line.sku, line.note, qty);
+    if (!setQuantity(line.sku, line.note, qty)) {
+      // Not saved: the cart was changed somewhere else (another tab), or the browser blocked saving
+      announce("That change could not be saved, so we reloaded your cart.");
+      render();
+      return;
+    }
+    line.qty = qty;
+    lineTotalEl.textContent = formatPrice(product.price * qty);
+    renderTotals(loadCart());   // only the totals change, so the row (and the focus in it) stays put
     announce("Updated " + product.name + " to " + qty + ".");
-    render();
   });
   controls.appendChild(qtyInput);
 
@@ -92,8 +102,21 @@ function buildRow(line) {
   row.appendChild(controls);
 
   // Line total
-  row.appendChild(makeEl("span", "cart-line-total", formatPrice(product.price * line.qty)));
+  row.appendChild(lineTotalEl);
   return row;
+}
+
+// The totals at the bottom. The Items and Deals rows only show when an automatic deal was applied.
+function renderTotals(lines) {
+  const totals = cartTotals(lines);
+  const hasDeals = totals.discount > 0;
+  itemsRowEl.hidden = !hasDeals;
+  dealsRowEl.hidden = !hasDeals;
+  itemsTotalEl.textContent = formatPrice(totals.itemsTotal);
+  dealsTextEl.textContent = "Deals applied (" + describeDeals(totals.deals) + ")";
+  dealsAmountEl.textContent = "−" + formatPrice(totals.discount);
+  subtotalEl.textContent = formatPrice(totals.total);
+  updateCartBadge();
 }
 
 // Redraws the whole cart from what's saved
@@ -107,17 +130,11 @@ function render() {
 
   emptyEl.hidden = lines.length > 0;
   summaryEl.hidden = lines.length === 0;
-
-  // Totals. The Items and Deals rows only show when an automatic deal was applied.
-  const totals = cartTotals(lines);
-  const hasDeals = totals.discount > 0;
-  itemsRowEl.hidden = !hasDeals;
-  dealsRowEl.hidden = !hasDeals;
-  itemsTotalEl.textContent = formatPrice(totals.itemsTotal);
-  dealsTextEl.textContent = "Deals applied (" + describeDeals(totals.deals) + ")";
-  dealsAmountEl.textContent = "−" + formatPrice(totals.discount);
-  subtotalEl.textContent = formatPrice(totals.total);
-  updateCartBadge();
+  renderTotals(lines);
 }
 
 render();
+
+// Keep the page honest if the cart changes in another tab, or the page comes back from the Back button
+window.addEventListener("storage", render);
+window.addEventListener("pageshow", render);

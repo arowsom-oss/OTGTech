@@ -253,6 +253,14 @@ formEl.addEventListener("submit", function (event) {
     return;
   }
 
+  // The cart can change in another tab while this page is open. Never place an order
+  // that is different from the summary the customer is looking at.
+  if (JSON.stringify(lines) !== shownCart) {
+    drawSummary();
+    statusEl.textContent = "Your cart changed in another tab, so we updated the order summary. Please check it, then place your order again.";
+    return;
+  }
+
   const problems = validateForm();
   if (problems.length > 0) {
     statusEl.textContent = problems.length === 1
@@ -269,14 +277,36 @@ formEl.addEventListener("submit", function (event) {
 // ---------- Showing the right thing when the page opens ----------
 
 function showEmptyCart() {
+  clearCardFields();   // a card typed before the cart emptied must not stay in the hidden form
+  formEl.reset();
   gridEl.hidden = true;
   emptyEl.hidden = false;
 }
 
-const startingLines = loadCart();
-if (startingLines.length === 0) {
-  showEmptyCart();
-} else {
+// What the summary on the page was drawn from, as text, so submit can check it hasn't changed
+let shownCart = "";
+
+// Draws the order summary from what is saved right now
+function drawSummary() {
+  const lines = loadCart();
+  shownCart = JSON.stringify(lines);
+  if (lines.length === 0) {
+    showEmptyCart();
+    return;
+  }
+  emptyEl.hidden = true;
   gridEl.hidden = false;
-  fillSummary(summaryLinesEl, summaryTotalsEl, startingLines, cartTotals(startingLines));
+  fillSummary(summaryLinesEl, summaryTotalsEl, lines, cartTotals(lines));
 }
+
+drawSummary();
+
+// Keep the summary honest if the cart changes in another tab, or the page comes back
+// from the Back button. (Not after the order is placed: the confirmation stays as it is.)
+function refreshSummary() {
+  if (confirmEl.hidden) {
+    drawSummary();
+  }
+}
+window.addEventListener("storage", refreshSummary);
+window.addEventListener("pageshow", refreshSummary);

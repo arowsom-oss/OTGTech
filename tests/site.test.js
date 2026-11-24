@@ -266,3 +266,168 @@ for (const name of PAGES) {
     await context.close();
   });
 }
+
+// ---------- 9. Fixes from the full-site review (Nov 24) ----------
+function fillShipping(page, card = CARD) {
+  return fillCheckout(page, card);
+}
+
+test("no page scrolls sideways on the smallest phones (320 px)", async () => {
+  const wide = [];
+  for (const name of PAGES) {
+    const { page, context } = await newPage(320);
+    await page.goto(url(name));
+    await page.waitForTimeout(200);
+    const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    if (over > 0) wide.push(`${name}: ${over}px`);
+    await context.close();
+  }
+  assert.deepStrictEqual(wide, []);
+});
+
+test("checkout: an order is never placed against a different cart than the one shown", async () => {
+  const { page, context } = await newPage();
+  await cartWith(page, JSON.stringify([{ sku: "PF-LTH-BLK", qty: 1, note: "" }]));
+  await page.goto(url("checkout"));
+  assert.match(await page.innerText("#summary-totals"), /\$399\.00/);
+  // another tab changes the cart
+  await page.evaluate(() => localStorage.setItem("otgtech-cart", JSON.stringify([{ sku: "PF-LTH-BLK", qty: 1, note: "" }, { sku: "PF-BND-OFF", qty: 3, note: "" }])));
+  await fillShipping(page);
+  await page.click("button[type=submit]");
+  assert.ok(await page.locator("#confirmation").isHidden(), "the order must not be placed yet");
+  assert.match(await page.innerText("#checkout-status"), /cart changed/i);
+  assert.match(await page.innerText("#summary-totals"), /\$11,196\.00/, "the summary must be redrawn");
+  assert.match(await page.evaluate(() => localStorage.getItem("otgtech-cart")), /PF-BND-OFF/, "the cart must be kept");
+  await page.click("button[type=submit]");                     // now the customer has seen the real total
+  await page.waitForSelector("#confirmation:not([hidden])");
+  assert.match(await page.innerText("#confirmation-totals"), /\$11,196\.00/);
+  await context.close();
+});
+
+test("checkout: emptying the cart elsewhere wipes the card fields", async () => {
+  const { page, context } = await newPage();
+  await cartWith(page, JSON.stringify([{ sku: "PF-LTH-BLK", qty: 1, note: "" }]));
+  await page.goto(url("checkout"));
+  await page.fill("#card-number", CARD);
+  await page.evaluate(() => { localStorage.setItem("otgtech-cart", "[]"); window.dispatchEvent(new Event("storage")); });
+  assert.ok(await page.locator("#checkout-empty").isVisible());
+  assert.strictEqual(await page.inputValue("#card-number"), "", "card digits left in the hidden form");
+  await context.close();
+});
+
+test("cart page: follows the cart when it changes in another tab", async () => {
+  const { page, context } = await newPage();
+  await cartWith(page, JSON.stringify([{ sku: "PF-LTH-BLK", qty: 2, note: "" }]));
+  await page.goto(url("cart"));
+  assert.match(await page.innerText("#cart-subtotal"), /\$798\.00/);
+  await page.evaluate(() => { localStorage.setItem("otgtech-cart", "[]"); window.dispatchEvent(new Event("storage")); });
+  assert.ok(await page.locator("#cart-empty").isVisible());
+  assert.strictEqual(await page.locator("#cart-list > li").count(), 0);
+  await context.close();
+});
+
+test("cart page: changing a quantity keeps keyboard focus, updates the totals, and tells the truth", async () => {
+  const { page, context } = await newPage();
+  await cartWith(page, JSON.stringify([{ sku: "PF-LTH-BLK", qty: 1, note: "" }]));
+  await page.goto(url("cart"));
+  const box = page.locator(".qty-input");
+  await box.fill("3");
+  await box.press("Enter");
+  await box.blur();
+  await box.focus();
+  await box.fill("4");
+  await page.keyboard.press("Tab");                            // leaves the box: this is what makes "change" fire
+  assert.match(await page.innerText("#cart-subtotal"), /\$1,596\.00/);
+  assert.match(await page.innerText(".cart-line-total"), /\$1,596\.00/);
+  assert.match(await page.innerText("#cart-status"), /Updated PortaFold Leather Black to 4/);
+  assert.ok(await page.evaluate(() => document.activeElement !== document.body), "focus fell back to the page");
+  // the cart is emptied elsewhere, then a quantity is edited here: it must not claim success
+  await page.evaluate(() => localStorage.setItem("otgtech-cart", "[]"));
+  await box.fill("2");
+  await page.keyboard.press("Tab");
+  assert.doesNotMatch(await page.innerText("#cart-status"), /Updated/);
+  assert.match(await page.innerText("#cart-status"), /could not be saved/);
+  await context.close();
+});
+
+test("every page has a skip link that moves focus to the main content", async () => {
+  for (const name of PAGES) {
+    const { page, context } = await newPage(1280);
+    await page.goto(url(name));
+    await page.keyboard.press("Tab");
+    assert.strictEqual(await page.evaluate(() => document.activeElement.className), "skip-link", name + ": the skip link must be first");
+    await page.keyboard.press("Enter");
+    assert.strictEqual(await page.evaluate(() => document.activeElement.id), "main", name + ": focus must land in main");
+    await context.close();
+  }
+});
+
+test("mobile menu: Escape closes it and returns focus to the Menu button", async () => {
+  const { page, context } = await newPage(390);
+  await page.goto(url("index"));
+  await page.click(".menu-button");
+  assert.strictEqual(await page.getAttribute(".menu-button", "aria-expanded"), "true");
+  await page.keyboard.press("Escape");
+  assert.strictEqual(await page.getAttribute(".menu-button", "aria-expanded"), "false");
+  assert.strictEqual(await page.evaluate(() => document.activeElement.className), "menu-button");
+  await context.close();
+});
+
+test("home slider: not a live region, and it stops while keyboard focus is inside it", async () => {
+  const { page, context } = await newPage(1280);
+  await page.goto(url("index"));
+  assert.strictEqual(await page.locator("[aria-live]").count(), 0, "the slider must not announce every slide");
+  await page.focus(".hero-next");
+  const before = await page.getAttribute("#hero-cycle", "data-slide");
+  await page.waitForTimeout(5600);                             // longer than one slide (4.5 s)
+  assert.strictEqual(await page.getAttribute("#hero-cycle", "data-slide"), before, "slides kept moving under keyboard focus");
+  await context.close();
+});
+
+test("specs: the battery and power budget numbers add up", async () => {
+  const { page, context } = await newPage(1280);
+  await page.goto(url("specs"));
+  const text = await page.innerText("main");
+  assert.match(text, /Runtime with everything charging\s+About 1 hour/);
+  assert.match(text, /USB ports \(2 USB-C, 1 USB-A\)\s+30 W/);
+  assert.match(text, /earbuds 5 W \+ USB ports 30 W = 65 W/);
+  await context.close();
+});
+
+test("shop: the Office Bundle color note can never be cut off in the cart", async () => {
+  const { page, context } = await newPage();
+  await page.goto(url("shop"));
+  const room = await page.evaluate(() => MAX_NOTE - "Colors: ".length);
+  const max = Number(await page.getAttribute("input[name=colors]", "maxlength"));
+  assert.ok(max <= room, `maxlength ${max} is more than the ${room} characters the cart keeps`);
+  await context.close();
+});
+
+test("form fields have a border you can see (3:1 against what is around them)", async () => {
+  const { page, context } = await newPage(1280);
+  await page.goto(url("checkout"));
+  const ratio = await page.evaluate(() => {
+    const rgb = (c) => c.match(/\d+/g).slice(0, 3).map(Number);
+    const lum = ([r, g, b]) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
+    const el = getComputedStyle(document.getElementById("card-number"));
+    const parent = getComputedStyle(document.querySelector("#checkout-form fieldset"));
+    const edge = lum(rgb(el.borderTopColor));
+    return Math.min(...[el.backgroundColor, parent.backgroundColor].map((c) => { const o = lum(rgb(c)); const [hi, lo] = edge > o ? [edge, o] : [o, edge]; return (hi + 0.05) / (lo + 0.05); }));
+  });
+  assert.ok(ratio >= 3, "border contrast is only " + ratio.toFixed(2) + ":1");
+  await context.close();
+});
+
+// This test describes a bug that is not fixed yet (shop.js, Alex's code): after Back, the page keeps the
+// radio the visitor picked but not the price, photo or the grayed-out Brown. Remove `todo` once it is fixed.
+test("shop: the page matches the radios after the Back button", { todo: "waiting for the fix in shop.js" }, async () => {
+  const { page, context } = await newPage();
+  await page.goto(url("shop"));
+  await page.check('input[value="Carbon fiber"]');
+  await page.goto(url("about"));
+  await page.goBack();
+  await page.waitForTimeout(400);
+  assert.match(await page.innerText("#product-price"), /\$499\.00/);
+  assert.strictEqual(await page.locator('input[value="Brown"]').isDisabled(), true);
+  await context.close();
+});
